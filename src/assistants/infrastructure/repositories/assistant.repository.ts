@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
+import { firstValueFrom } from 'rxjs';
 import { Assistant } from '../../domain/entities/assistant.entity';
 import { CreateAssistantDto } from '../../application/dtos/create-assistant.dto';
 import { UpdateAssistantDto } from '../../application/dtos/update-assistant.dto';
@@ -7,87 +10,76 @@ import { AssistantRepositoryInterface } from '../../domain/repositories/assistan
 
 @Injectable()
 export class AssistantRepository implements AssistantRepositoryInterface {
-  private assistants: Assistant[] = [];
+  private readonly baseUrl = 'https://api.vapi.ai/assistant';
+
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  private getAuthHeader(): { Authorization: string } {
+    const token = this.configService.get<string>('VAPI_SECRET_KEY');
+    return { Authorization: `Bearer ${token}` };
+  }
 
   async findAll(query: ListAssistantsQueryDto): Promise<Assistant[]> {
-    let result = [...this.assistants];
+    const params: Record<string, any> = {};
+    if (typeof query.limit === 'number') params.limit = query.limit;
+    if (query.createdAtGt) params.createdAtGt = query.createdAtGt;
+    if (query.createdAtLt) params.createdAtLt = query.createdAtLt;
+    if (query.createdAtGe) params.createdAtGe = query.createdAtGe;
+    if (query.createdAtLe) params.createdAtLe = query.createdAtLe;
+    if (query.updatedAtGt) params.updatedAtGt = query.updatedAtGt;
+    if (query.updatedAtLt) params.updatedAtLt = query.updatedAtLt;
+    if (query.updatedAtGe) params.updatedAtGe = query.updatedAtGe;
+    if (query.updatedAtLe) params.updatedAtLe = query.updatedAtLe;
 
-    // Apply filters based on query parameters
-    if (query.createdAtGt) {
-      result = result.filter(a => new Date(a.createdAt) > new Date(query.createdAtGt));
-    }
-    if (query.createdAtLt) {
-      result = result.filter(a => new Date(a.createdAt) < new Date(query.createdAtLt));
-    }
-    if (query.createdAtGe) {
-      result = result.filter(a => new Date(a.createdAt) >= new Date(query.createdAtGe));
-    }
-    if (query.createdAtLe) {
-      result = result.filter(a => new Date(a.createdAt) <= new Date(query.createdAtLe));
-    }
-    if (query.updatedAtGt) {
-      result = result.filter(a => new Date(a.updatedAt) > new Date(query.updatedAtGt));
-    }
-    if (query.updatedAtLt) {
-      result = result.filter(a => new Date(a.updatedAt) < new Date(query.updatedAtLt));
-    }
-    if (query.updatedAtGe) {
-      result = result.filter(a => new Date(a.updatedAt) >= new Date(query.updatedAtGe));
-    }
-    if (query.updatedAtLe) {
-      result = result.filter(a => new Date(a.updatedAt) <= new Date(query.updatedAtLe));
-    }
-
-    // Apply limit
-    if (query.limit) {
-      result = result.slice(0, query.limit);
-    }
-
-    return result;
+    const response = await firstValueFrom(
+      this.httpService.get<Assistant[]>(this.baseUrl, {
+        headers: this.getAuthHeader(),
+        params,
+      }),
+    );
+    return response.data;
   }
 
   async findById(id: string): Promise<Assistant | null> {
-    return this.assistants.find(assistant => assistant.id === id) || null;
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get<Assistant>(`${this.baseUrl}/${id}`, {
+          headers: this.getAuthHeader(),
+        }),
+      );
+      return response.data;
+    } catch (error: any) {
+      if (error?.response?.status === 404) return null;
+      throw error;
+    }
   }
 
   async create(data: CreateAssistantDto): Promise<Assistant> {
-    const now = new Date().toISOString();
-    const assistant: Assistant = {
-      id: this.generateId(),
-      orgId: 'default-org',
-      createdAt: now,
-      updatedAt: now,
-      ...data,
-    };
-
-    this.assistants.push(assistant);
-    return assistant;
+    const response = await firstValueFrom(
+      this.httpService.post<Assistant>(this.baseUrl, data, {
+        headers: this.getAuthHeader(),
+      }),
+    );
+    return response.data;
   }
 
   async update(id: string, data: UpdateAssistantDto): Promise<Assistant> {
-    const index = this.assistants.findIndex(assistant => assistant.id === id);
-    if (index === -1) {
-      return null;
-    }
-
-    const updatedAssistant: Assistant = {
-      ...this.assistants[index],
-      ...data,
-      updatedAt: new Date().toISOString(),
-    };
-
-    this.assistants[index] = updatedAssistant;
-    return updatedAssistant;
+    const response = await firstValueFrom(
+      this.httpService.patch<Assistant>(`${this.baseUrl}/${id}`, data, {
+        headers: this.getAuthHeader(),
+      }),
+    );
+    return response.data;
   }
 
   async delete(id: string): Promise<void> {
-    const index = this.assistants.findIndex(assistant => assistant.id === id);
-    if (index !== -1) {
-      this.assistants.splice(index, 1);
-    }
-  }
-
-  private generateId(): string {
-    return Math.random().toString(36).substr(2, 9);
+    await firstValueFrom(
+      this.httpService.delete(`${this.baseUrl}/${id}`, {
+        headers: this.getAuthHeader(),
+      }),
+    );
   }
 }
