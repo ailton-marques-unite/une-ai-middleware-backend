@@ -40,7 +40,6 @@ export class CallRepository implements CallRepositoryInterface {
     if (query.customerPhoneNumber) params.customerPhoneNumber = query.customerPhoneNumber;
     if (query.campaignId) params.campaignId = query.campaignId;
     if (query.sessionId) params.sessionId = query.sessionId;
-    console.log(params, 'params');
 
     const response = await firstValueFrom(
       this.httpService.get<Call[]>(this.baseUrl, {
