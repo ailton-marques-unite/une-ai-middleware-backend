@@ -12,6 +12,7 @@ const config_1 = require("@nestjs/config");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const assistants_module_1 = require("./assistants/assistants.module");
+const calls_module_1 = require("./calls/calls.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -20,6 +21,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             assistants_module_1.AssistantsModule,
+            calls_module_1.CallsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
