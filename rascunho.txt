@@ -1,0 +1,9 @@
+curl -X 'GET' \
+  'https://api.vapi.ai/assistant/d3a32acc-7f3c-4688-b833-6260d9ecd7e9' \
+  -H 'accept: application/json' \
+  -H "Authorization: Bearer ada0b408-b4e4-49f9-8afd-00a983bef0f6"
+  
+  
+  
+based on application's architecture, good practices and dependenciy inversion, references documentation and @https://docs.vapi.ai/api-reference/assistants, I need to create  endpoints to expose the services from Assistants (Domain). At first, we leave Squad, Calls, Chats, Campaigns, etc. for later.
+It is important that properties, headers and parameters follow the typing rules of the original routes and it would also be ideal to create interfaces to validate payloads.
