@@ -10,7 +10,7 @@ import { AssistantRepositoryInterface } from '../../domain/repositories/assistan
 
 @Injectable()
 export class AssistantRepository implements AssistantRepositoryInterface {
-  private readonly baseUrl = 'https://api.vapi.ai/assistant';
+  private readonly baseUrl = `${process.env.VAPI_API_URL}/assistant`;
 
   constructor(
     private readonly httpService: HttpService,
