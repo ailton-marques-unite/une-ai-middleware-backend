@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AssistantsModule } from './assistants/assistants.module';
 import { CallsModule } from './calls/calls.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
+import { PhoneNumbersModule } from './phone-numbers/phone-numbers.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { CampaignsModule } from './campaigns/campaigns.module';
     AssistantsModule,
     CallsModule,
     CampaignsModule,
+    PhoneNumbersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
