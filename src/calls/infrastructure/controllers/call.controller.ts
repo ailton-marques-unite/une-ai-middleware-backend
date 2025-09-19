@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { CallService } from '../../application/services/call.service';
 import { CreateCallDto } from '../../application/dtos/create-call.dto';
@@ -23,6 +24,7 @@ export class CallController {
   constructor(private readonly callService: CallService) {}
 
   @Post()
+  @ApiExcludeEndpoint()
   @ApiOperation({ summary: 'Create a new call' })
   @ApiResponse({
     status: 201,
