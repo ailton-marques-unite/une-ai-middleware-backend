@@ -14,6 +14,9 @@ const app_service_1 = require("./app.service");
 const assistants_module_1 = require("./assistants/assistants.module");
 const calls_module_1 = require("./calls/calls.module");
 const campaigns_module_1 = require("./campaigns/campaigns.module");
+const phone_numbers_module_1 = require("./phone-numbers/phone-numbers.module");
+const tools_module_1 = require("./tools/tools.module");
+const analytics_module_1 = require("./analytics/analytics.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,6 +27,9 @@ exports.AppModule = AppModule = __decorate([
             assistants_module_1.AssistantsModule,
             calls_module_1.CallsModule,
             campaigns_module_1.CampaignsModule,
+            phone_numbers_module_1.PhoneNumbersModule,
+            tools_module_1.ToolsModule,
+            analytics_module_1.AnalyticsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

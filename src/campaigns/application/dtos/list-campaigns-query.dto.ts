@@ -1,6 +1,17 @@
-import { IsOptional, IsNumber, IsDateString, Min, Max, IsEnum, IsString } from 'class-validator';
+import {
+  IsOptional,
+  IsNumber,
+  IsDateString,
+  Min,
+  Max,
+  IsEnum,
+  IsString,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { CampaignStatus, CampaignType } from '../../domain/entities/campaign.entity';
+import {
+  CampaignStatus,
+  CampaignType,
+} from '../../domain/entities/campaign.entity';
 
 export class ListCampaignsQueryDto {
   @IsOptional()

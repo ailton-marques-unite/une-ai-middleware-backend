@@ -7,10 +7,7 @@ import { AssistantRepository } from './infrastructure/repositories/assistant.rep
 @Module({
   imports: [HttpModule],
   controllers: [AssistantController],
-  providers: [
-    AssistantRepository,
-    AssistantService,
-  ],
+  providers: [AssistantRepository, AssistantService],
   exports: [AssistantService, AssistantRepository],
 })
 export class AssistantsModule {}

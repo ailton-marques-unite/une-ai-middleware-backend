@@ -10,7 +10,13 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { CampaignService } from '../../application/services/campaign.service';
 import { CreateCampaignDto } from '../../application/dtos/create-campaign.dto';
 import { UpdateCampaignDto } from '../../application/dtos/update-campaign.dto';
@@ -33,7 +39,9 @@ export class CampaignController {
     status: 400,
     description: 'Bad request - Invalid input data',
   })
-  async create(@Body() createCampaignDto: CreateCampaignDto): Promise<CampaignResponseDto> {
+  async create(
+    @Body() createCampaignDto: CreateCampaignDto,
+  ): Promise<CampaignResponseDto> {
     return this.campaignService.create(createCampaignDto);
   }
 
@@ -59,7 +67,9 @@ export class CampaignController {
     description: 'List of campaigns retrieved successfully',
     type: [CampaignResponseDto],
   })
-  async findAll(@Query() query: ListCampaignsQueryDto): Promise<CampaignResponseDto[]> {
+  async findAll(
+    @Query() query: ListCampaignsQueryDto,
+  ): Promise<CampaignResponseDto[]> {
     return this.campaignService.findAll(query);
   }
 

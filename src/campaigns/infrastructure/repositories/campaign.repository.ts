@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { Campaign, CampaignStatus } from '../../domain/entities/campaign.entity';
+import {
+  Campaign,
+  CampaignStatus,
+} from '../../domain/entities/campaign.entity';
 import { CreateCampaignDto } from '../../application/dtos/create-campaign.dto';
 import { UpdateCampaignDto } from '../../application/dtos/update-campaign.dto';
 import { ListCampaignsQueryDto } from '../../application/dtos/list-campaigns-query.dto';

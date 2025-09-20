@@ -1,6 +1,19 @@
-import { IsString, IsOptional, IsObject, IsArray, IsBoolean, IsNumber, IsEnum, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsEnum,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { PhoneNumberType, PhoneNumberCapabilities, PhoneNumberCost } from '../../domain/entities/phone-number.entity';
+import {
+  PhoneNumberType,
+  PhoneNumberCapabilities,
+  PhoneNumberCost,
+} from '../../domain/entities/phone-number.entity';
 
 export class CreatePhoneNumberDto {
   @IsString()

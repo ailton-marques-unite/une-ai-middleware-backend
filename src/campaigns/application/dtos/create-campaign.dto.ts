@@ -1,6 +1,21 @@
-import { IsString, IsOptional, IsObject, IsArray, IsBoolean, IsNumber, IsEnum, ValidateNested, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsEnum,
+  ValidateNested,
+  IsDateString,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { CampaignType, CampaignTarget, CampaignSchedule, CampaignSettings } from '../../domain/entities/campaign.entity';
+import {
+  CampaignType,
+  CampaignTarget,
+  CampaignSchedule,
+  CampaignSettings,
+} from '../../domain/entities/campaign.entity';
 
 export class CreateCampaignDto {
   @IsString()

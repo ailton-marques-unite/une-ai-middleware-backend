@@ -1,7 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CampaignController } from '../campaign.controller';
 import { CampaignService } from '../../../application/services/campaign.service';
-import { Campaign, CampaignStatus, CampaignType } from '../../../domain/entities/campaign.entity';
+import {
+  Campaign,
+  CampaignStatus,
+  CampaignType,
+} from '../../../domain/entities/campaign.entity';
 import { CreateCampaignDto } from '../../../application/dtos/create-campaign.dto';
 import { UpdateCampaignDto } from '../../../application/dtos/update-campaign.dto';
 import { ListCampaignsQueryDto } from '../../../application/dtos/list-campaigns-query.dto';
@@ -50,7 +54,7 @@ describe('CampaignController', () => {
 
   describe('create', () => {
     it('should create a new campaign', async () => {
-      const createDto: CreateCampaignDto = { 
+      const createDto: CreateCampaignDto = {
         name: 'New Campaign',
         type: CampaignType.OUTBOUND,
         assistantId: 'assistant-1',

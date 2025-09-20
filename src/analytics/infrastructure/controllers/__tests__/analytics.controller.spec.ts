@@ -1,118 +1,37 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AnalyticsController } from '../analytics.controller';
 import { AnalyticsService } from '../../../application/services/analytics.service';
-import { CreateAnalyticsDto } from '../../../application/dtos/create-analytics.dto';
-import { UpdateAnalyticsDto } from '../../../application/dtos/update-analytics.dto';
-import { ListAnalyticsQueryDto } from '../../../application/dtos/list-analytics-query.dto';
-import { AnalyticsResponseDto } from '../../../application/dtos/analytics-response.dto';
-import { AnalyticsType, AnalyticsStatus, MetricsType, TimeRange } from '../../../domain/entities/analytics.entity';
+import { CreateAnalyticsRequestDto } from '../../../application/dtos/create-analytics-request.dto';
+import { AnalyticsResultDto } from '../../../application/dtos/analytics-result.dto';
 
 describe('AnalyticsController', () => {
   let controller: AnalyticsController;
   let service: jest.Mocked<AnalyticsService>;
 
-  const mockAnalyticsResponse: AnalyticsResponseDto = {
-    id: 'analytics_1',
-    orgId: 'org_1',
-    name: 'Call Performance Report',
-    description: 'Comprehensive analytics for call performance and metrics',
-    type: AnalyticsType.CALL_ANALYTICS,
-    status: AnalyticsStatus.ACTIVE,
-    query: {
-      filters: [
-        {
-          field: 'status',
-          operator: 'eq',
-          value: 'completed',
-        },
-      ],
-      aggregations: [
-        {
-          field: 'duration',
-          function: 'avg',
-          alias: 'average_duration',
-        },
-        {
-          field: 'cost',
-          function: 'sum',
-          alias: 'total_cost',
-        },
-      ],
-      groupBy: ['assistant_id', 'date'],
-      orderBy: ['date DESC'],
-        timeRange: TimeRange.WEEK,
-      limit: 1000,
+  const mockAnalyticsResult: AnalyticsResultDto = {
+    name: 'call-duration-summary',
+    timeRange: {
+      step: 'day',
+      start: '2024-01-01T00:00:00Z',
+      end: '2024-01-31T23:59:59Z',
+      timezone: 'UTC'
     },
-    metrics: [
+    result: [
       {
-        name: 'total_calls',
-        description: 'Total number of calls',
-        type: MetricsType.COUNTER,
-        value: 1250,
-        unit: 'calls',
-        labels: {
-          status: 'completed',
-          period: '1w',
-        },
-      },
-      {
-        name: 'average_duration',
-        description: 'Average call duration',
-        type: MetricsType.GAUGE,
-        value: 180,
-        unit: 'seconds',
-        labels: {
-          status: 'completed',
-          period: '1w',
-        },
-      },
-    ],
-    configuration: {
-      reportFormat: 'json',
-      includeCharts: true,
-      dataRetention: '90d',
-    },
-    metadata: {
-      createdBy: 'admin',
-      lastModifiedBy: 'admin',
-      dataSource: 'call_logs',
-    },
-    format: 'json',
-    schedule: '0 0 * * *', // Daily at midnight
-    isScheduled: true,
-    lastRunAt: '2024-01-15T00:00:00Z',
-    nextRunAt: '2024-01-16T00:00:00Z',
-    runCount: 15,
-    successCount: 14,
-    errorCount: 1,
-    lastError: 'Database connection timeout',
-    processingTime: 45000,
-    recordCount: 1250,
-    fileSize: '2.5MB',
-    filePath: '/reports/call-performance-2024-01-15.json',
-    downloadUrl: 'https://api.example.com/download/call-performance-2024-01-15.json',
-    email: 'admin@example.com',
-    emailNotification: true,
-    webhookUrl: 'https://hooks.slack.com/services/webhook-url',
-    webhookNotification: true,
-    owner: 'admin',
-    tags: ['calls', 'performance', 'weekly'],
-    isPublic: false,
-    category: 'performance',
-    version: '1.0.0',
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-15T00:00:00Z',
-  };
-
-  const mockService = {
-    findAll: jest.fn(),
-    findById: jest.fn(),
-    create: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
+        date: '2024-01-01',
+        assistantId: 'assistant_123',
+        endedReason: 'customer-ended-call',
+        sumDuration: 1200,
+        countId: 5
+      }
+    ]
   };
 
   beforeEach(async () => {
+    const mockService = {
+      createAnalytics: jest.fn(),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AnalyticsController],
       providers: [
@@ -131,103 +50,166 @@ describe('AnalyticsController', () => {
     jest.clearAllMocks();
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-
-  describe('create', () => {
-    it('should create a new analytics report', async () => {
-      const createDto: CreateAnalyticsDto = {
-        name: 'Test Analytics',
-        description: 'A test analytics report for unit testing',
-        type: AnalyticsType.CUSTOM,
-        format: 'json',
-        schedule: '0 0 * * *',
-        isScheduled: true,
-        email: 'test@example.com',
-        emailNotification: true,
-        owner: 'test_user',
-        tags: ['test'],
-        isPublic: false,
-        category: 'test',
-        version: '1.0.0',
+  describe('createAnalytics', () => {
+    it('should create analytics queries for call duration summary', async () => {
+      const request: CreateAnalyticsRequestDto = {
+        queries: [
+          {
+            table: 'call',
+            name: 'call-duration-summary',
+            operations: [
+              { operation: 'sum', column: 'duration' },
+              { operation: 'count', column: 'id' }
+            ],
+            groupBy: ['assistantId', 'endedReason'],
+            timeRange: {
+              start: '2024-01-01T00:00:00Z',
+              end: '2024-01-31T23:59:59Z',
+              step: 'day',
+              timezone: 'UTC'
+            }
+          }
+        ]
       };
 
-      service.create.mockResolvedValue(mockAnalyticsResponse);
+      service.createAnalytics.mockResolvedValue([mockAnalyticsResult]);
 
-      const result = await controller.create(createDto);
+      const result = await controller.createAnalytics(request);
 
-      expect(service.create).toHaveBeenCalledWith(createDto);
-      expect(result).toEqual(mockAnalyticsResponse);
-    });
-  });
-
-  describe('findAll', () => {
-    it('should return all analytics reports', async () => {
-      const query: ListAnalyticsQueryDto = { limit: 10 };
-      service.findAll.mockResolvedValue([mockAnalyticsResponse]);
-
-      const result = await controller.findAll(query);
-
-      expect(service.findAll).toHaveBeenCalledWith(query);
-      expect(result).toEqual([mockAnalyticsResponse]);
+      expect(service.createAnalytics).toHaveBeenCalledWith(request);
+      expect(service.createAnalytics).toHaveBeenCalledTimes(1);
+      expect(result).toEqual([mockAnalyticsResult]);
+      expect(result[0].name).toBe('call-duration-summary');
     });
 
-    it('should return filtered analytics reports', async () => {
-      const query: ListAnalyticsQueryDto = {
-        status: AnalyticsStatus.ACTIVE,
-        type: AnalyticsType.CALL_ANALYTICS,
-        limit: 5,
-      };
-      service.findAll.mockResolvedValue([mockAnalyticsResponse]);
-
-      const result = await controller.findAll(query);
-
-      expect(service.findAll).toHaveBeenCalledWith(query);
-      expect(result).toEqual([mockAnalyticsResponse]);
-    });
-  });
-
-  describe('findOne', () => {
-    it('should return an analytics report by id', async () => {
-      service.findById.mockResolvedValue(mockAnalyticsResponse);
-
-      const result = await controller.findOne('analytics_1');
-
-      expect(service.findById).toHaveBeenCalledWith('analytics_1');
-      expect(result).toEqual(mockAnalyticsResponse);
-    });
-  });
-
-  describe('update', () => {
-    it('should update an analytics report', async () => {
-      const updateDto: UpdateAnalyticsDto = {
-        description: 'Updated description',
-        version: '2.0.0',
+    it('should handle service errors during analytics creation', async () => {
+      const request: CreateAnalyticsRequestDto = {
+        queries: [
+          {
+            table: 'call',
+            name: 'error-analytics',
+            operations: [
+              { operation: 'sum', column: 'duration' }
+            ]
+          }
+        ]
       };
 
-      const updatedResponse = {
-        ...mockAnalyticsResponse,
-        description: 'Updated description',
-        version: '2.0.0',
+      const error = new Error('Analytics service unavailable');
+      service.createAnalytics.mockRejectedValue(error);
+
+      await expect(controller.createAnalytics(request)).rejects.toThrow(
+        'Analytics service unavailable'
+      );
+      expect(service.createAnalytics).toHaveBeenCalledWith(request);
+    });
+
+    it('should handle multiple analytics queries', async () => {
+      const request: CreateAnalyticsRequestDto = {
+        queries: [
+          {
+            table: 'call',
+            name: 'call-duration-summary',
+            operations: [
+              { operation: 'sum', column: 'duration' }
+            ]
+          },
+          {
+            table: 'assistant',
+            name: 'assistant-performance',
+            operations: [
+              { operation: 'avg', column: 'successRate' }
+            ]
+          }
+        ]
       };
 
-      service.update.mockResolvedValue(updatedResponse);
+      const expectedResults: AnalyticsResultDto[] = [
+        {
+          name: 'call-duration-summary',
+          timeRange: {
+            step: 'day',
+            start: '2024-01-01T00:00:00Z',
+            end: '2024-01-31T23:59:59Z',
+            timezone: 'UTC'
+          },
+          result: []
+        },
+        {
+          name: 'assistant-performance',
+          timeRange: {
+            step: 'day',
+            start: '2024-01-01T00:00:00Z',
+            end: '2024-01-31T23:59:59Z',
+            timezone: 'UTC'
+          },
+          result: []
+        }
+      ];
 
-      const result = await controller.update('analytics_1', updateDto);
+      service.createAnalytics.mockResolvedValue(expectedResults);
 
-      expect(service.update).toHaveBeenCalledWith('analytics_1', updateDto);
-      expect(result).toEqual(updatedResponse);
+      const result = await controller.createAnalytics(request);
+
+      expect(service.createAnalytics).toHaveBeenCalledWith(request);
+      expect(result).toHaveLength(2);
+      expect(result[0].name).toBe('call-duration-summary');
+      expect(result[1].name).toBe('assistant-performance');
     });
-  });
 
-  describe('remove', () => {
-    it('should delete an analytics report', async () => {
-      service.delete.mockResolvedValue(undefined);
+    it('should handle empty results', async () => {
+      const request: CreateAnalyticsRequestDto = {
+        queries: [
+          {
+            table: 'call',
+            name: 'empty-analytics',
+            operations: [
+              { operation: 'count', column: 'id' }
+            ],
+            filters: { status: 'non-existent' }
+          }
+        ]
+      };
 
-      await controller.remove('analytics_1');
+      const expectedResult: AnalyticsResultDto = {
+        name: 'empty-analytics',
+        timeRange: {
+          step: 'day',
+          start: '2024-01-01T00:00:00Z',
+          end: '2024-01-31T23:59:59Z',
+          timezone: 'UTC'
+        },
+        result: []
+      };
 
-      expect(service.delete).toHaveBeenCalledWith('analytics_1');
+      service.createAnalytics.mockResolvedValue([expectedResult]);
+
+      const result = await controller.createAnalytics(request);
+
+      expect(service.createAnalytics).toHaveBeenCalledWith(request);
+      expect(result[0].result).toHaveLength(0);
+    });
+
+    it('should handle invalid query parameters', async () => {
+      const request: CreateAnalyticsRequestDto = {
+        queries: [
+          {
+            table: 'invalid-table',
+            name: 'invalid-analytics',
+            operations: [
+              { operation: 'invalid-operation', column: 'invalid-column' }
+            ]
+          }
+        ]
+      };
+
+      const error = new Error('Invalid table or operation');
+      service.createAnalytics.mockRejectedValue(error);
+
+      await expect(controller.createAnalytics(request)).rejects.toThrow(
+        'Invalid table or operation'
+      );
+      expect(service.createAnalytics).toHaveBeenCalledWith(request);
     });
   });
 });

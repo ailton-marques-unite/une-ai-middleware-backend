@@ -8,9 +8,7 @@ import { AssistantServiceInterface } from './assistant.service.interface';
 
 @Injectable()
 export class AssistantService implements AssistantServiceInterface {
-  constructor(
-    private readonly assistantRepository: AssistantRepository,
-  ) {}
+  constructor(private readonly assistantRepository: AssistantRepository) {}
 
   async findAll(query: ListAssistantsQueryDto): Promise<Assistant[]> {
     return this.assistantRepository.findAll(query);

@@ -2,7 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
 import { CallService } from '../call.service';
 import { CallRepository } from '../../../infrastructure/repositories/call.repository';
-import { Call, CallStatus, CallType } from '../../../domain/entities/call.entity';
+import {
+  Call,
+  CallStatus,
+  CallType,
+} from '../../../domain/entities/call.entity';
 import { CreateCallDto } from '../../dtos/create-call.dto';
 import { UpdateCallDto } from '../../dtos/update-call.dto';
 import { ListCallsQueryDto } from '../../dtos/list-calls-query.dto';
@@ -87,7 +91,7 @@ describe('CallService', () => {
 
   describe('create', () => {
     it('should create and return new call', async () => {
-      const createDto: CreateCallDto = { 
+      const createDto: CreateCallDto = {
         assistantId: 'assistant-1',
         customerPhoneNumber: '+1234567890',
       };
@@ -119,7 +123,9 @@ describe('CallService', () => {
       const updateDto: UpdateCallDto = { status: CallStatus.IN_PROGRESS };
       repository.findById.mockResolvedValue(null);
 
-      await expect(service.update('1', updateDto)).rejects.toThrow(NotFoundException);
+      await expect(service.update('1', updateDto)).rejects.toThrow(
+        NotFoundException,
+      );
       expect(repository.findById).toHaveBeenCalledWith('1');
     });
   });
