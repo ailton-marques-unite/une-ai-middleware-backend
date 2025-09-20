@@ -7,10 +7,7 @@ import { CampaignRepository } from './infrastructure/repositories/campaign.repos
 @Module({
   imports: [HttpModule],
   controllers: [CampaignController],
-  providers: [
-    CampaignRepository,
-    CampaignService,
-  ],
+  providers: [CampaignRepository, CampaignService],
   exports: [CampaignService, CampaignRepository],
 })
 export class CampaignsModule {}

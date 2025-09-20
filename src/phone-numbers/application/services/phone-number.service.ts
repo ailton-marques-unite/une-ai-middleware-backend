@@ -1,22 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PhoneNumberRepository } from '../../infrastructure/repositories/phone-number.repository';
 import { PhoneNumberServiceInterface } from './phone-number.service.interface';
-import { CreatePhoneNumberDto } from '../dtos/create-phone-number.dto';
-import { UpdatePhoneNumberDto } from '../dtos/update-phone-number.dto';
-import { ListPhoneNumbersQueryDto } from '../dtos/list-phone-numbers-query.dto';
+import { CreatePhoneNumberRequestDto } from '../dtos/phone-number-request.dto';
 import { PhoneNumberResponseDto } from '../dtos/phone-number-response.dto';
-import { PhoneNumber, PhoneNumberStatus } from '../../domain/entities/phone-number.entity';
+import {
+  PhoneNumber,
+  PhoneNumberStatus,
+} from '../../domain/entities/phone-number.entity';
 
 @Injectable()
 export class PhoneNumberService implements PhoneNumberServiceInterface {
-  constructor(
-    private readonly phoneNumberRepository: PhoneNumberRepository,
-  ) {}
-
-  async findAll(query: ListPhoneNumbersQueryDto): Promise<PhoneNumberResponseDto[]> {
-    const phoneNumbers = await this.phoneNumberRepository.findAll(query);
-    return phoneNumbers.map(this.mapToResponseDto);
-  }
+  constructor(private readonly phoneNumberRepository: PhoneNumberRepository) {}
 
   async findById(id: string): Promise<PhoneNumberResponseDto> {
     const phoneNumber = await this.phoneNumberRepository.findById(id);
@@ -26,42 +20,12 @@ export class PhoneNumberService implements PhoneNumberServiceInterface {
     return this.mapToResponseDto(phoneNumber);
   }
 
-  async create(createPhoneNumberDto: CreatePhoneNumberDto): Promise<PhoneNumberResponseDto> {
-    const phoneNumber: PhoneNumber = {
-      id: this.generateId(),
-      orgId: 'default-org', // This should come from the authenticated user context
-      ...createPhoneNumberDto,
-      status: PhoneNumberStatus.ACTIVE,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      isActive: true,
-    };
-
-    const createdPhoneNumber = await this.phoneNumberRepository.create(phoneNumber);
+  async create(
+    createPhoneNumberDto: CreatePhoneNumberRequestDto,
+  ): Promise<PhoneNumberResponseDto> {
+    const createdPhoneNumber =
+      await this.phoneNumberRepository.create(createPhoneNumberDto);
     return this.mapToResponseDto(createdPhoneNumber);
-  }
-
-  async update(id: string, updatePhoneNumberDto: UpdatePhoneNumberDto): Promise<PhoneNumberResponseDto> {
-    const existingPhoneNumber = await this.phoneNumberRepository.findById(id);
-    if (!existingPhoneNumber) {
-      throw new NotFoundException(`Phone number with ID ${id} not found`);
-    }
-
-    const updatedPhoneNumber = await this.phoneNumberRepository.update(id, {
-      ...updatePhoneNumberDto,
-      updatedAt: new Date().toISOString(),
-    });
-
-    return this.mapToResponseDto(updatedPhoneNumber);
-  }
-
-  async delete(id: string): Promise<void> {
-    const existingPhoneNumber = await this.phoneNumberRepository.findById(id);
-    if (!existingPhoneNumber) {
-      throw new NotFoundException(`Phone number with ID ${id} not found`);
-    }
-
-    await this.phoneNumberRepository.delete(id);
   }
 
   private mapToResponseDto(phoneNumber: PhoneNumber): PhoneNumberResponseDto {

@@ -1,6 +1,17 @@
-import { IsString, IsOptional, IsNumber, IsEnum, IsBoolean, Min, Max } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsEnum,
+  IsBoolean,
+  Min,
+  Max,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { AnalyticsType, AnalyticsStatus } from '../../domain/entities/analytics.entity';
+import {
+  AnalyticsType,
+  AnalyticsStatus,
+} from '../../domain/entities/analytics.entity';
 
 export class ListAnalyticsQueryDto {
   @IsOptional()

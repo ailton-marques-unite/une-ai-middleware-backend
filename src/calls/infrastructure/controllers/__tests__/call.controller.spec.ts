@@ -1,7 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CallController } from '../call.controller';
 import { CallService } from '../../../application/services/call.service';
-import { Call, CallStatus, CallType } from '../../../domain/entities/call.entity';
+import {
+  Call,
+  CallStatus,
+  CallType,
+} from '../../../domain/entities/call.entity';
 import { CreateCallDto } from '../../../application/dtos/create-call.dto';
 import { UpdateCallDto } from '../../../application/dtos/update-call.dto';
 import { ListCallsQueryDto } from '../../../application/dtos/list-calls-query.dto';
@@ -54,7 +58,7 @@ describe('CallController', () => {
 
   describe('create', () => {
     it('should create a new call', async () => {
-      const createDto: CreateCallDto = { 
+      const createDto: CreateCallDto = {
         assistantId: 'assistant-1',
         customerPhoneNumber: '+1234567890',
       };
@@ -115,8 +119,4 @@ describe('CallController', () => {
       expect(service.delete).toHaveBeenCalledWith('1');
     });
   });
-
-
-
-
 });

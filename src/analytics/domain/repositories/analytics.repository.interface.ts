@@ -1,9 +1,6 @@
-import { Analytics } from '../entities/analytics.entity';
+import { CreateAnalyticsRequestDto } from '../../application/dtos/create-analytics-request.dto';
+import { AnalyticsResultDto } from '../../application/dtos/analytics-result.dto';
 
 export interface AnalyticsRepositoryInterface {
-  findAll(query?: any): Promise<Analytics[]>;
-  findById(id: string): Promise<Analytics | null>;
-  create(analytics: Analytics): Promise<Analytics>;
-  update(id: string, analytics: Partial<Analytics>): Promise<Analytics>;
-  delete(id: string): Promise<void>;
+  createAnalytics(request: CreateAnalyticsRequestDto): Promise<AnalyticsResultDto[]>;
 }

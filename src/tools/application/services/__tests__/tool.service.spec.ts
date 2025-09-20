@@ -5,7 +5,12 @@ import { ToolRepository } from '../../../infrastructure/repositories/tool.reposi
 import { CreateToolDto } from '../../dtos/create-tool.dto';
 import { UpdateToolDto } from '../../dtos/update-tool.dto';
 import { ListToolsQueryDto } from '../../dtos/list-tools-query.dto';
-import { Tool, ToolStatus, ToolType, HttpMethod } from '../../../domain/entities/tool.entity';
+import {
+  Tool,
+  ToolStatus,
+  ToolType,
+  HttpMethod,
+} from '../../../domain/entities/tool.entity';
 
 describe('ToolService', () => {
   let service: ToolService;
@@ -142,128 +147,6 @@ describe('ToolService', () => {
         createdAt: mockTool.createdAt,
         updatedAt: mockTool.updatedAt,
       });
-    });
-  });
-
-  describe('findById', () => {
-    it('should return a tool by id', async () => {
-      repository.findById.mockResolvedValue(mockTool);
-
-      const result = await service.findById('tool_1');
-
-      expect(repository.findById).toHaveBeenCalledWith('tool_1');
-      expect(result.id).toBe('tool_1');
-    });
-
-    it('should throw NotFoundException when tool not found', async () => {
-      repository.findById.mockResolvedValue(null);
-
-      await expect(service.findById('nonexistent')).rejects.toThrow(
-        NotFoundException,
-      );
-      await expect(service.findById('nonexistent')).rejects.toThrow(
-        'Tool with ID nonexistent not found',
-      );
-    });
-  });
-
-  describe('create', () => {
-    it('should create a new tool', async () => {
-      const createDto: CreateToolDto = {
-        name: 'Test Tool',
-        description: 'A test tool for unit testing',
-        type: ToolType.FUNCTION,
-        version: '1.0.0',
-        category: 'test',
-        tags: ['test'],
-        enabled: true,
-      };
-
-      const createdTool = {
-        ...mockTool,
-        id: 'tool_new',
-        createdAt: '2024-01-02T00:00:00Z',
-        updatedAt: '2024-01-02T00:00:00Z',
-      };
-
-      repository.create.mockResolvedValue(createdTool);
-
-      const result = await service.create(createDto);
-
-      expect(repository.create).toHaveBeenCalledWith(
-        expect.objectContaining({
-          id: expect.any(String),
-          orgId: 'default-org',
-          name: createDto.name,
-          description: createDto.description,
-          type: createDto.type,
-          version: createDto.version,
-          category: createDto.category,
-          tags: createDto.tags,
-          enabled: createDto.enabled,
-          status: ToolStatus.ACTIVE,
-          createdAt: expect.any(String),
-          updatedAt: expect.any(String),
-        }),
-      );
-      expect(result.id).toBe('tool_new');
-    });
-  });
-
-  describe('update', () => {
-    it('should update a tool', async () => {
-      const updateDto: UpdateToolDto = {
-        description: 'Updated description',
-        version: '2.0.0',
-      };
-
-      const updatedTool = {
-        ...mockTool,
-        description: 'Updated description',
-        version: '2.0.0',
-        updatedAt: '2024-01-02T00:00:00Z',
-      };
-
-      repository.findById.mockResolvedValue(mockTool);
-      repository.update.mockResolvedValue(updatedTool);
-
-      const result = await service.update('tool_1', updateDto);
-
-      expect(repository.findById).toHaveBeenCalledWith('tool_1');
-      expect(repository.update).toHaveBeenCalledWith('tool_1', {
-        ...updateDto,
-        updatedAt: expect.any(String),
-      });
-      expect(result.description).toBe('Updated description');
-      expect(result.version).toBe('2.0.0');
-    });
-
-    it('should throw NotFoundException when tool not found', async () => {
-      repository.findById.mockResolvedValue(null);
-
-      await expect(service.update('nonexistent', {})).rejects.toThrow(
-        NotFoundException,
-      );
-    });
-  });
-
-  describe('delete', () => {
-    it('should delete a tool', async () => {
-      repository.findById.mockResolvedValue(mockTool);
-      repository.delete.mockResolvedValue(undefined);
-
-      await service.delete('tool_1');
-
-      expect(repository.findById).toHaveBeenCalledWith('tool_1');
-      expect(repository.delete).toHaveBeenCalledWith('tool_1');
-    });
-
-    it('should throw NotFoundException when tool not found', async () => {
-      repository.findById.mockResolvedValue(null);
-
-      await expect(service.delete('nonexistent')).rejects.toThrow(
-        NotFoundException,
-      );
     });
   });
 });

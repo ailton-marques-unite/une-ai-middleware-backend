@@ -1,6 +1,23 @@
-import { IsString, IsOptional, IsObject, IsArray, IsBoolean, IsNumber, IsEnum, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsEnum,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { FirstMessageMode, ClientMessage, ServerMessage, TranscriberConfig, ModelConfig, VoiceConfig, VoicemailDetectionConfig } from '../../domain/entities/assistant.entity';
+import {
+  FirstMessageMode,
+  ClientMessage,
+  ServerMessage,
+  TranscriberConfig,
+  ModelConfig,
+  VoiceConfig,
+  VoicemailDetectionConfig,
+} from '../../domain/entities/assistant.entity';
 
 export class CreateAssistantDto {
   @IsOptional()

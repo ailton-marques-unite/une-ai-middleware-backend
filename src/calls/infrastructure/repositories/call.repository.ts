@@ -37,7 +37,8 @@ export class CallRepository implements CallRepositoryInterface {
     if (query.type) params.type = query.type;
     if (query.assistantId) params.assistantId = query.assistantId;
     if (query.customerId) params.customerId = query.customerId;
-    if (query.customerPhoneNumber) params.customerPhoneNumber = query.customerPhoneNumber;
+    if (query.customerPhoneNumber)
+      params.customerPhoneNumber = query.customerPhoneNumber;
     if (query.campaignId) params.campaignId = query.campaignId;
     if (query.sessionId) params.sessionId = query.sessionId;
 

@@ -10,4 +10,3 @@ export interface AssistantServiceInterface {
   update(id: string, data: UpdateAssistantDto): Promise<Assistant>;
   delete(id: string): Promise<void>;
 }
-

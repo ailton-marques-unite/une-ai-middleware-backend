@@ -10,7 +10,13 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { AssistantService } from '../../application/services/assistant.service';
 import { CreateAssistantDto } from '../../application/dtos/create-assistant.dto';
 import { UpdateAssistantDto } from '../../application/dtos/update-assistant.dto';
@@ -33,7 +39,9 @@ export class AssistantController {
     status: 400,
     description: 'Bad request - Invalid input data',
   })
-  async create(@Body() createAssistantDto: CreateAssistantDto): Promise<AssistantResponseDto> {
+  async create(
+    @Body() createAssistantDto: CreateAssistantDto,
+  ): Promise<AssistantResponseDto> {
     return this.assistantService.create(createAssistantDto);
   }
 
@@ -53,7 +61,9 @@ export class AssistantController {
     description: 'List of assistants retrieved successfully',
     type: [AssistantResponseDto],
   })
-  async findAll(@Query() query: ListAssistantsQueryDto): Promise<AssistantResponseDto[]> {
+  async findAll(
+    @Query() query: ListAssistantsQueryDto,
+  ): Promise<AssistantResponseDto[]> {
     return this.assistantService.findAll(query);
   }
 
@@ -112,5 +122,3 @@ export class AssistantController {
     return this.assistantService.delete(id);
   }
 }
-
-

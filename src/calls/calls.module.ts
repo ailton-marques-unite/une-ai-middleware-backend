@@ -7,10 +7,7 @@ import { CallRepository } from './infrastructure/repositories/call.repository';
 @Module({
   imports: [HttpModule],
   controllers: [CallController],
-  providers: [
-    CallRepository,
-    CallService,
-  ],
+  providers: [CallRepository, CallService],
   exports: [CallService, CallRepository],
 })
 export class CallsModule {}

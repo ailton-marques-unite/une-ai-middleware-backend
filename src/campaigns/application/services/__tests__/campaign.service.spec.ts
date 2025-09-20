@@ -2,7 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
 import { CampaignService } from '../campaign.service';
 import { CampaignRepository } from '../../../infrastructure/repositories/campaign.repository';
-import { Campaign, CampaignStatus, CampaignType } from '../../../domain/entities/campaign.entity';
+import {
+  Campaign,
+  CampaignStatus,
+  CampaignType,
+} from '../../../domain/entities/campaign.entity';
 import { CreateCampaignDto } from '../../dtos/create-campaign.dto';
 import { UpdateCampaignDto } from '../../dtos/update-campaign.dto';
 import { ListCampaignsQueryDto } from '../../dtos/list-campaigns-query.dto';
@@ -83,7 +87,7 @@ describe('CampaignService', () => {
 
   describe('create', () => {
     it('should create and return new campaign', async () => {
-      const createDto: CreateCampaignDto = { 
+      const createDto: CreateCampaignDto = {
         name: 'New Campaign',
         type: CampaignType.OUTBOUND,
         assistantId: 'assistant-1',
@@ -116,7 +120,9 @@ describe('CampaignService', () => {
       const updateDto: UpdateCampaignDto = { status: CampaignStatus.RUNNING };
       repository.findById.mockResolvedValue(null);
 
-      await expect(service.update('1', updateDto)).rejects.toThrow(NotFoundException);
+      await expect(service.update('1', updateDto)).rejects.toThrow(
+        NotFoundException,
+      );
       expect(repository.findById).toHaveBeenCalledWith('1');
     });
   });

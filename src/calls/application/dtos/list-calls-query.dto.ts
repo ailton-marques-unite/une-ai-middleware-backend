@@ -1,4 +1,12 @@
-import { IsOptional, IsNumber, IsDateString, Min, Max, IsEnum, IsString } from 'class-validator';
+import {
+  IsOptional,
+  IsNumber,
+  IsDateString,
+  Min,
+  Max,
+  IsEnum,
+  IsString,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { CallStatus, CallType } from '../../domain/entities/call.entity';
 

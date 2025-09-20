@@ -109,7 +109,9 @@ describe('AssistantService', () => {
       const updateDto: UpdateAssistantDto = { name: 'Updated Assistant' };
       repository.findById.mockResolvedValue(null);
 
-      await expect(service.update('1', updateDto)).rejects.toThrow(NotFoundException);
+      await expect(service.update('1', updateDto)).rejects.toThrow(
+        NotFoundException,
+      );
       expect(repository.findById).toHaveBeenCalledWith('1');
     });
   });

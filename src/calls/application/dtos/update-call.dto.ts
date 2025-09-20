@@ -1,6 +1,12 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateCallDto } from './create-call.dto';
-import { IsOptional, IsEnum, IsString, IsDateString, IsNumber } from 'class-validator';
+import {
+  IsOptional,
+  IsEnum,
+  IsString,
+  IsDateString,
+  IsNumber,
+} from 'class-validator';
 import { CallStatus, EndReason } from '../../domain/entities/call.entity';
 
 export class UpdateCallDto extends PartialType(CreateCallDto) {

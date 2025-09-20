@@ -8,9 +8,7 @@ import { CampaignServiceInterface } from './campaign.service.interface';
 
 @Injectable()
 export class CampaignService implements CampaignServiceInterface {
-  constructor(
-    private readonly campaignRepository: CampaignRepository,
-  ) {}
+  constructor(private readonly campaignRepository: CampaignRepository) {}
 
   async findAll(query: ListCampaignsQueryDto): Promise<Campaign[]> {
     return this.campaignRepository.findAll(query);

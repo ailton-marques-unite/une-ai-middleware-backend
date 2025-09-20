@@ -1,6 +1,17 @@
-import { IsString, IsOptional, IsNumber, IsEnum, IsBoolean, Min, Max } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsEnum,
+  IsBoolean,
+  Min,
+  Max,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { PhoneNumberType, PhoneNumberStatus } from '../../domain/entities/phone-number.entity';
+import {
+  PhoneNumberType,
+  PhoneNumberStatus,
+} from '../../domain/entities/phone-number.entity';
 
 export class ListPhoneNumbersQueryDto {
   @IsOptional()

@@ -1,6 +1,23 @@
-import { IsString, IsOptional, IsObject, IsArray, IsBoolean, IsNumber, IsEnum, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsEnum,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { AnalyticsType, TimeRange, AnalyticsFilter, AnalyticsAggregation, AnalyticsQuery, AnalyticsMetric, AnalyticsDimension } from '../../domain/entities/analytics.entity';
+import {
+  AnalyticsType,
+  TimeRange,
+  AnalyticsFilter,
+  AnalyticsAggregation,
+  AnalyticsQuery,
+  AnalyticsMetric,
+  AnalyticsDimension,
+} from '../../domain/entities/analytics.entity';
 
 export class CreateAnalyticsDto {
   @IsString()

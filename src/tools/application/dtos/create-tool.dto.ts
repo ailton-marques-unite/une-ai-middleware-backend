@@ -1,6 +1,21 @@
-import { IsString, IsOptional, IsObject, IsArray, IsBoolean, IsNumber, IsEnum, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsEnum,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
-import { ToolType, HttpMethod, ToolParameter, ToolAuthentication, ToolEndpoint, ToolWebhook, ToolFunction } from '../../domain/entities/tool.entity';
+import {
+  ToolType,
+  ToolAuthentication,
+  ToolEndpoint,
+  ToolWebhook,
+  ToolFunction,
+} from '../../domain/entities/tool.entity';
 
 export class CreateToolDto {
   @IsString()

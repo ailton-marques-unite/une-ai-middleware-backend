@@ -8,9 +8,7 @@ import { CallServiceInterface } from './call.service.interface';
 
 @Injectable()
 export class CallService implements CallServiceInterface {
-  constructor(
-    private readonly callRepository: CallRepository,
-  ) {}
+  constructor(private readonly callRepository: CallRepository) {}
 
   async findAll(query: ListCallsQueryDto): Promise<Call[]> {
     return this.callRepository.findAll(query);
