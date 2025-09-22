@@ -13,6 +13,7 @@ import {
 import {
   ApiTags,
   ApiOperation,
+  ApiExcludeEndpoint,
   ApiResponse,
   ApiParam,
   ApiQuery,
@@ -84,6 +85,7 @@ export class AssistantController {
   }
 
   @Patch(':id')
+  @ApiExcludeEndpoint()
   @ApiOperation({ summary: 'Update assistant by ID' })
   @ApiParam({ name: 'id', description: 'Assistant ID' })
   @ApiResponse({
@@ -108,6 +110,7 @@ export class AssistantController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiExcludeEndpoint()
   @ApiOperation({ summary: 'Delete assistant by ID' })
   @ApiParam({ name: 'id', description: 'Assistant ID' })
   @ApiResponse({

@@ -13,6 +13,7 @@ import {
 import {
   ApiTags,
   ApiOperation,
+  ApiExcludeEndpoint,
   ApiResponse,
   ApiParam,
   ApiQuery,
@@ -90,6 +91,7 @@ export class CampaignController {
   }
 
   @Patch(':id')
+  @ApiExcludeEndpoint()
   @ApiOperation({ summary: 'Update campaign by ID' })
   @ApiParam({ name: 'id', description: 'Campaign ID' })
   @ApiResponse({
@@ -114,6 +116,7 @@ export class CampaignController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiExcludeEndpoint()
   @ApiOperation({ summary: 'Delete campaign by ID' })
   @ApiParam({ name: 'id', description: 'Campaign ID' })
   @ApiResponse({

@@ -10,10 +10,10 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import {
   ApiTags,
   ApiOperation,
+  ApiExcludeEndpoint,
   ApiResponse,
   ApiParam,
   ApiQuery,
@@ -89,6 +89,7 @@ export class CallController {
   }
 
   @Patch(':id')
+  @ApiExcludeEndpoint()
   @ApiOperation({ summary: 'Update call by ID' })
   @ApiParam({ name: 'id', description: 'Call ID' })
   @ApiResponse({
@@ -113,6 +114,7 @@ export class CallController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiExcludeEndpoint()
   @ApiOperation({ summary: 'Delete call by ID' })
   @ApiParam({ name: 'id', description: 'Call ID' })
   @ApiResponse({
