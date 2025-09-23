@@ -12,8 +12,8 @@ O presente aplicativo faz a integração com os serviços disponibilizados pela 
 ## Etapas
 
 - Levantamento de esforços
-- Checklist técnico
-- Épicos e histórias
+- ✅ Checklist técnico
+- 🗂️🧑‍💻 Épicos e histórias
 - 🔐 Aplicação das regras de negócio e segurança de acessos
 - 🔌 Integração com o serviço Twilio voice
 - 🧭 Implantação de Logs de acesso e rastreabilidade
@@ -64,11 +64,14 @@ Organizado em etapas que podem ser distribuídas por histórias ou tarefas no bo
 - [x] Desenvolver o serviço para exposição dos endpoints de Assistants
 - [x] Criar estrutura deploy para o serviço Assistants
 - [x] Configuração de ambientes e customização de serviços
+- [x] Desenvolver o serviço para exposição dos endpoints de Campaigns, Calls e Phone numbers
+- [x] Configurar variáveis de ambiente e arquivos de configuração para orquestração do deploy
+- [x] Publicar, testes com serviço Api Gateway
+- [ ] Implantar de logs de acesso para rastreabilidade
+- [ ] Integração com Twilio voice
 
 ### Sprint 2: Replicar os demais casos de uso e publicar infraestrutura segura
 
-- [x] Desenvolver o serviço para exposição dos endpoints de Campaigns, Calls e Phone numbers
-- [x] Configurar variáveis de ambiente e arquivos de configuração para orquestração do deploy
 - [ ] Implementar autenticação do usuário
 - [ ] Configurar políticas de acesso e rastreamento
 - [ ] Documentar a arquitetura atual (API, banco, backend) e analisar impactos para escalabilidade
@@ -144,6 +147,7 @@ A seguinte estrutura está dividida por épicos, histórias de usuário e tarefa
 ### ✅ Tarefas
 
 - Implementar autenticação do usuário (TOMAS, nome provisório)
+- Implantar de logs de acesso para rastreabilidade
 - Configurar políticas de acesso e rastreamento das atividades do usuário
 
 ---
