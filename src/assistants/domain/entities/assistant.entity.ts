@@ -87,9 +87,35 @@ export class TranscriberConfig {
   disablePartialTranscripts?: boolean;
 }
 
+import { IsDefined } from 'class-validator';
+
+export class ModelMessageConfig {
+  @IsString()
+  role: string;
+
+  @IsString()
+  content: string;
+}
+
 export class ModelConfig {
+  @IsString()
+  model: string;
+
   @IsArray()
-  messages: Array<{ content: string; role: string }>;
+  @ValidateNested({ each: true })
+  @Type(() => ModelMessageConfig)
+  messages: ModelMessageConfig[];
+
+  @IsString()
+  provider: string;
+
+  @IsOptional()
+  @IsNumber()
+  maxTokens?: number;
+
+  @IsOptional()
+  @IsNumber()
+  temperature?: number;
 
   @IsOptional()
   @IsArray()

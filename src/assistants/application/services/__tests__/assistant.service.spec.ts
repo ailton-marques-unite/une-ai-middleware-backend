@@ -80,7 +80,22 @@ describe('AssistantService', () => {
 
   describe('create', () => {
     it('should create and return new assistant', async () => {
-      const createDto: CreateAssistantDto = { name: 'New Assistant' };
+      const createDto: CreateAssistantDto = {
+        name: 'New Assistant',
+        model: {
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'system',
+              content: 'Test system message',
+            },
+          ],
+          provider: 'openai',
+          maxTokens: 250,
+          temperature: 0.7,
+        },
+        metadata: { language: 'en', department: 'support' },
+      };
       repository.create.mockResolvedValue(mockAssistant);
 
       const result = await service.create(createDto);
