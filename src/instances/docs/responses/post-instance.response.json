@@ -1,0 +1,21 @@
+{
+  "instance": {
+    "instanceName": "teste-docs",
+    "instanceId": "af6c5b7c-ee27-4f94-9ea8-192393746ddd",
+    "webhook_wa_business": null,
+    "access_token_wa_business": "",
+    "status": "created"
+  },
+  "hash": {
+    "apikey": "123456"
+  },
+  "settings": {
+    "reject_call": false,
+    "msg_call": "",
+    "groups_ignore": true,
+    "always_online": false,
+    "read_messages": false,
+    "read_status": false,
+    "sync_full_history": false
+  }
+}
