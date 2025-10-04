@@ -1,10 +1,16 @@
-import { IsString, IsOptional, IsObject, IsBoolean, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsBoolean,
+  IsArray,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Credential ID for Vapi provider',
-    example: 'credential_vapi_123'
+    example: 'credential_vapi_123',
   })
   @IsString()
   credentialId: string;
@@ -12,7 +18,7 @@ export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Phone number in E.164 format',
     example: '+1234567890',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -21,7 +27,7 @@ export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Name for the phone number',
     example: 'Vapi Business Line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -30,7 +36,7 @@ export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Description of the phone number',
     example: 'Vapi-powered business line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -39,7 +45,7 @@ export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Assistant ID to associate with this phone number',
     example: 'assistant_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -48,7 +54,7 @@ export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Workflow ID to associate with this phone number',
     example: 'workflow_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -57,7 +63,7 @@ export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Squad ID to associate with this phone number',
     example: 'squad_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -66,7 +72,7 @@ export class CreateVapiPhoneNumberDto {
   @ApiProperty({
     description: 'Enable E164 number validation',
     example: true,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -74,14 +80,14 @@ export class CreateVapiPhoneNumberDto {
 
   @ApiProperty({
     description: 'Provider type',
-    example: 'vapi-phone-number'
+    example: 'vapi-phone-number',
   })
   @IsString()
   provider: 'vapi-phone-number';
 
   @ApiProperty({
     description: 'Server configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -100,7 +106,7 @@ export class CreateVapiPhoneNumberDto {
 
   @ApiProperty({
     description: 'Fallback destination configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -136,7 +142,7 @@ export class CreateVapiPhoneNumberDto {
 
   @ApiProperty({
     description: 'Hooks configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   hooks?: Array<{

@@ -14,7 +14,7 @@ describe('AnalyticsController', () => {
       step: 'day',
       start: '2024-01-01T00:00:00Z',
       end: '2024-01-31T23:59:59Z',
-      timezone: 'UTC'
+      timezone: 'UTC',
     },
     result: [
       {
@@ -22,9 +22,9 @@ describe('AnalyticsController', () => {
         assistantId: 'assistant_123',
         endedReason: 'customer-ended-call',
         sumDuration: 1200,
-        countId: 5
-      }
-    ]
+        countId: 5,
+      },
+    ],
   };
 
   beforeEach(async () => {
@@ -59,17 +59,17 @@ describe('AnalyticsController', () => {
             name: 'call-duration-summary',
             operations: [
               { operation: 'sum', column: 'duration' },
-              { operation: 'count', column: 'id' }
+              { operation: 'count', column: 'id' },
             ],
             groupBy: ['assistantId', 'endedReason'],
             timeRange: {
               start: '2024-01-01T00:00:00Z',
               end: '2024-01-31T23:59:59Z',
               step: 'day',
-              timezone: 'UTC'
-            }
-          }
-        ]
+              timezone: 'UTC',
+            },
+          },
+        ],
       };
 
       service.createAnalytics.mockResolvedValue([mockAnalyticsResult]);
@@ -88,18 +88,16 @@ describe('AnalyticsController', () => {
           {
             table: 'call',
             name: 'error-analytics',
-            operations: [
-              { operation: 'sum', column: 'duration' }
-            ]
-          }
-        ]
+            operations: [{ operation: 'sum', column: 'duration' }],
+          },
+        ],
       };
 
       const error = new Error('Analytics service unavailable');
       service.createAnalytics.mockRejectedValue(error);
 
       await expect(controller.createAnalytics(request)).rejects.toThrow(
-        'Analytics service unavailable'
+        'Analytics service unavailable',
       );
       expect(service.createAnalytics).toHaveBeenCalledWith(request);
     });
@@ -110,18 +108,14 @@ describe('AnalyticsController', () => {
           {
             table: 'call',
             name: 'call-duration-summary',
-            operations: [
-              { operation: 'sum', column: 'duration' }
-            ]
+            operations: [{ operation: 'sum', column: 'duration' }],
           },
           {
             table: 'assistant',
             name: 'assistant-performance',
-            operations: [
-              { operation: 'avg', column: 'successRate' }
-            ]
-          }
-        ]
+            operations: [{ operation: 'avg', column: 'successRate' }],
+          },
+        ],
       };
 
       const expectedResults: AnalyticsResultDto[] = [
@@ -131,9 +125,9 @@ describe('AnalyticsController', () => {
             step: 'day',
             start: '2024-01-01T00:00:00Z',
             end: '2024-01-31T23:59:59Z',
-            timezone: 'UTC'
+            timezone: 'UTC',
           },
-          result: []
+          result: [],
         },
         {
           name: 'assistant-performance',
@@ -141,10 +135,10 @@ describe('AnalyticsController', () => {
             step: 'day',
             start: '2024-01-01T00:00:00Z',
             end: '2024-01-31T23:59:59Z',
-            timezone: 'UTC'
+            timezone: 'UTC',
           },
-          result: []
-        }
+          result: [],
+        },
       ];
 
       service.createAnalytics.mockResolvedValue(expectedResults);
@@ -163,12 +157,10 @@ describe('AnalyticsController', () => {
           {
             table: 'call',
             name: 'empty-analytics',
-            operations: [
-              { operation: 'count', column: 'id' }
-            ],
-            filters: { status: 'non-existent' }
-          }
-        ]
+            operations: [{ operation: 'count', column: 'id' }],
+            filters: { status: 'non-existent' },
+          },
+        ],
       };
 
       const expectedResult: AnalyticsResultDto = {
@@ -177,9 +169,9 @@ describe('AnalyticsController', () => {
           step: 'day',
           start: '2024-01-01T00:00:00Z',
           end: '2024-01-31T23:59:59Z',
-          timezone: 'UTC'
+          timezone: 'UTC',
         },
-        result: []
+        result: [],
       };
 
       service.createAnalytics.mockResolvedValue([expectedResult]);
@@ -197,17 +189,17 @@ describe('AnalyticsController', () => {
             table: 'invalid-table',
             name: 'invalid-analytics',
             operations: [
-              { operation: 'invalid-operation', column: 'invalid-column' }
-            ]
-          }
-        ]
+              { operation: 'invalid-operation', column: 'invalid-column' },
+            ],
+          },
+        ],
       };
 
       const error = new Error('Invalid table or operation');
       service.createAnalytics.mockRejectedValue(error);
 
       await expect(controller.createAnalytics(request)).rejects.toThrow(
-        'Invalid table or operation'
+        'Invalid table or operation',
       );
       expect(service.createAnalytics).toHaveBeenCalledWith(request);
     });

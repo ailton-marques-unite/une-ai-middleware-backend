@@ -1,10 +1,16 @@
-import { IsString, IsOptional, IsObject, IsBoolean, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsBoolean,
+  IsArray,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Credential ID for Vonage provider',
-    example: 'credential_vonage_123'
+    example: 'credential_vonage_123',
   })
   @IsString()
   credentialId: string;
@@ -12,7 +18,7 @@ export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Phone number in E.164 format',
     example: '+1234567890',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -21,7 +27,7 @@ export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Name for the phone number',
     example: 'Vonage Business Line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -30,7 +36,7 @@ export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Description of the phone number',
     example: 'Vonage-powered business line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -39,7 +45,7 @@ export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Assistant ID to associate with this phone number',
     example: 'assistant_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -48,7 +54,7 @@ export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Workflow ID to associate with this phone number',
     example: 'workflow_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -57,7 +63,7 @@ export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Squad ID to associate with this phone number',
     example: 'squad_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -66,7 +72,7 @@ export class CreateVonagePhoneNumberDto {
   @ApiProperty({
     description: 'Enable E164 number validation',
     example: true,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -74,14 +80,14 @@ export class CreateVonagePhoneNumberDto {
 
   @ApiProperty({
     description: 'Provider type',
-    example: 'vonage-phone-number'
+    example: 'vonage-phone-number',
   })
   @IsString()
   provider: 'vonage-phone-number';
 
   @ApiProperty({
     description: 'Server configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -100,7 +106,7 @@ export class CreateVonagePhoneNumberDto {
 
   @ApiProperty({
     description: 'Fallback destination configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -136,7 +142,7 @@ export class CreateVonagePhoneNumberDto {
 
   @ApiProperty({
     description: 'Hooks configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   hooks?: Array<{

@@ -9,7 +9,11 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { PhoneNumberType, PhoneNumberCapabilities, PhoneNumberCost } from '../../domain/entities/phone-number.entity';
+import {
+  PhoneNumberType,
+  PhoneNumberCapabilities,
+  PhoneNumberCost,
+} from '../../domain/entities/phone-number.entity';
 import { CreateByoPhoneNumberDto } from './byo-phone-number.dto';
 import { CreateTwilioPhoneNumberDto } from './twilio-phone-number.dto';
 import { CreateVapiPhoneNumberDto } from './vapi-phone-number.dto';
@@ -17,34 +21,45 @@ import { CreateVonagePhoneNumberDto } from './vonage-phone-number.dto';
 import { CreateTelnyxPhoneNumberDto } from './telnyx-phone-number.dto';
 
 // Union type for all phone number providers
-export type PhoneNumberProviderDto = 
-  | CreateByoPhoneNumberDto 
-  | CreateTwilioPhoneNumberDto 
-  | CreateVapiPhoneNumberDto 
-  | CreateVonagePhoneNumberDto 
+export type PhoneNumberProviderDto =
+  | CreateByoPhoneNumberDto
+  | CreateTwilioPhoneNumberDto
+  | CreateVapiPhoneNumberDto
+  | CreateVonagePhoneNumberDto
   | CreateTelnyxPhoneNumberDto;
 
 // Main DTO that accepts any provider type - using BYO as base since it's the most flexible
 export class CreatePhoneNumberRequestDto {
   @ApiProperty({
     description: 'Credential ID for the phone number provider',
-    example: 'credential_123456789'
+    example: 'credential_123456789',
   })
   @IsString()
   credentialId: string;
 
   @ApiProperty({
     description: 'Provider type for the phone number',
-    enum: ['byo-phone-number', 'twilio-phone-number', 'vapi-phone-number', 'vonage-phone-number', 'telnyx-phone-number'],
-    example: 'byo-phone-number'
+    enum: [
+      'byo-phone-number',
+      'twilio-phone-number',
+      'vapi-phone-number',
+      'vonage-phone-number',
+      'telnyx-phone-number',
+    ],
+    example: 'byo-phone-number',
   })
   @IsString()
-  provider: 'byo-phone-number' | 'twilio-phone-number' | 'vapi-phone-number' | 'vonage-phone-number' | 'telnyx-phone-number';
+  provider:
+    | 'byo-phone-number'
+    | 'twilio-phone-number'
+    | 'vapi-phone-number'
+    | 'vonage-phone-number'
+    | 'telnyx-phone-number';
 
   @ApiProperty({
     description: 'Phone number in E.164 format',
     example: '+1234567890',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -53,7 +68,7 @@ export class CreatePhoneNumberRequestDto {
   @ApiProperty({
     description: 'Name for the phone number',
     example: 'My Business Line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -62,7 +77,7 @@ export class CreatePhoneNumberRequestDto {
   @ApiProperty({
     description: 'Description of the phone number',
     example: 'Main business phone line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -71,7 +86,7 @@ export class CreatePhoneNumberRequestDto {
   @ApiProperty({
     description: 'Assistant ID to associate with this phone number',
     example: 'assistant_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -80,7 +95,7 @@ export class CreatePhoneNumberRequestDto {
   @ApiProperty({
     description: 'Workflow ID to associate with this phone number',
     example: 'workflow_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -89,7 +104,7 @@ export class CreatePhoneNumberRequestDto {
   @ApiProperty({
     description: 'Squad ID to associate with this phone number',
     example: 'squad_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -98,7 +113,7 @@ export class CreatePhoneNumberRequestDto {
   @ApiProperty({
     description: 'Enable E164 number validation',
     example: true,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -106,7 +121,7 @@ export class CreatePhoneNumberRequestDto {
 
   @ApiProperty({
     description: 'Server configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -125,7 +140,7 @@ export class CreatePhoneNumberRequestDto {
 
   @ApiProperty({
     description: 'Fallback destination configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -161,7 +176,7 @@ export class CreatePhoneNumberRequestDto {
 
   @ApiProperty({
     description: 'Hooks configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   hooks?: Array<{

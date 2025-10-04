@@ -3,9 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { PhoneNumberRepositoryInterface } from '../../domain/repositories/phone-number.repository.interface';
-import {
-  PhoneNumber
-} from '../../domain/entities/phone-number.entity';
+import { PhoneNumber } from '../../domain/entities/phone-number.entity';
 import { CreatePhoneNumberRequestDto } from '../../application/dtos/phone-number-request.dto';
 
 @Injectable()

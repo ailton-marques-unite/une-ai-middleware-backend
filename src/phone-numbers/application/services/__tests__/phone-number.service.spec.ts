@@ -4,7 +4,11 @@ import { PhoneNumberService } from '../phone-number.service';
 import { PhoneNumberRepository } from '../../../infrastructure/repositories/phone-number.repository';
 import { CreatePhoneNumberRequestDto } from '../../dtos/phone-number-request.dto';
 import { PhoneNumberResponseDto } from '../../dtos/phone-number-response.dto';
-import { PhoneNumber, PhoneNumberStatus, PhoneNumberType } from '../../../domain/entities/phone-number.entity';
+import {
+  PhoneNumber,
+  PhoneNumberStatus,
+  PhoneNumberType,
+} from '../../../domain/entities/phone-number.entity';
 
 describe('PhoneNumberService', () => {
   let service: PhoneNumberService;
@@ -24,13 +28,13 @@ describe('PhoneNumberService', () => {
       voice: true,
       sms: true,
       mms: false,
-      fax: false
+      fax: false,
     },
     cost: {
-      monthly: 1.00,
-      setup: 0.00,
+      monthly: 1.0,
+      setup: 0.0,
       perMinute: 0.01,
-      currency: 'USD'
+      currency: 'USD',
     },
     description: 'Main business line',
     friendlyName: 'Business Phone',
@@ -41,7 +45,7 @@ describe('PhoneNumberService', () => {
     tags: ['business', 'main'],
     metadata: {
       department: 'sales',
-      location: 'office'
+      location: 'office',
     },
     createdAt: '2024-01-01T00:00:00Z',
     updatedAt: '2024-01-01T00:00:00Z',
@@ -70,7 +74,7 @@ describe('PhoneNumberService', () => {
     smsFallbackUrl: null,
     smsMethod: 'POST',
     statusCallbackEvent: 'initiated,answered,completed',
-    statusCallbackUrl: 'https://api.example.com/status'
+    statusCallbackUrl: 'https://api.example.com/status',
   };
 
   const mockPhoneNumberResponse: PhoneNumberResponseDto = {
@@ -87,13 +91,13 @@ describe('PhoneNumberService', () => {
       voice: true,
       sms: true,
       mms: false,
-      fax: false
+      fax: false,
     },
     cost: {
-      monthly: 1.00,
-      setup: 0.00,
+      monthly: 1.0,
+      setup: 0.0,
       perMinute: 0.01,
-      currency: 'USD'
+      currency: 'USD',
     },
     description: 'Main business line',
     friendlyName: 'Business Phone',
@@ -104,7 +108,7 @@ describe('PhoneNumberService', () => {
     tags: ['business', 'main'],
     metadata: {
       department: 'sales',
-      location: 'office'
+      location: 'office',
     },
     createdAt: '2024-01-01T00:00:00Z',
     updatedAt: '2024-01-01T00:00:00Z',
@@ -133,7 +137,7 @@ describe('PhoneNumberService', () => {
     smsFallbackUrl: null,
     smsMethod: 'POST',
     statusCallbackEvent: 'initiated,answered,completed',
-    statusCallbackUrl: 'https://api.example.com/status'
+    statusCallbackUrl: 'https://api.example.com/status',
   };
 
   const mockRepository = {
@@ -181,11 +185,9 @@ describe('PhoneNumberService', () => {
       const id = 'non_existent_id';
       repository.findById.mockResolvedValue(null);
 
+      await expect(service.findById(id)).rejects.toThrow(NotFoundException);
       await expect(service.findById(id)).rejects.toThrow(
-        NotFoundException
-      );
-      await expect(service.findById(id)).rejects.toThrow(
-        `Phone number with ID ${id} not found`
+        `Phone number with ID ${id} not found`,
       );
       expect(repository.findById).toHaveBeenCalledWith(id);
     });
@@ -195,9 +197,7 @@ describe('PhoneNumberService', () => {
       const error = new Error('Repository error');
       repository.findById.mockRejectedValue(error);
 
-      await expect(service.findById(id)).rejects.toThrow(
-        'Repository error'
-      );
+      await expect(service.findById(id)).rejects.toThrow('Repository error');
       expect(repository.findById).toHaveBeenCalledWith(id);
     });
 
@@ -210,7 +210,7 @@ describe('PhoneNumberService', () => {
         description: undefined,
         friendlyName: undefined,
         tags: undefined,
-        metadata: undefined
+        metadata: undefined,
       };
 
       repository.findById.mockResolvedValue(minimalPhoneNumber);
@@ -232,7 +232,7 @@ describe('PhoneNumberService', () => {
         provider: 'byo-phone-number',
         number: '+1234567890',
         name: 'Test Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       repository.create.mockResolvedValue(mockPhoneNumber);
@@ -251,19 +251,19 @@ describe('PhoneNumberService', () => {
         provider: 'twilio-phone-number',
         number: '+1234567890',
         name: 'Twilio Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const twilioPhoneNumber: PhoneNumber = {
         ...mockPhoneNumber,
         provider: 'twilio-phone-number',
-        providerId: 'twilio_prov_1'
+        providerId: 'twilio_prov_1',
       };
 
       const expectedResponse: PhoneNumberResponseDto = {
         ...mockPhoneNumberResponse,
         provider: 'twilio-phone-number',
-        providerId: 'twilio_prov_1'
+        providerId: 'twilio_prov_1',
       };
 
       repository.create.mockResolvedValue(twilioPhoneNumber);
@@ -281,19 +281,19 @@ describe('PhoneNumberService', () => {
         provider: 'vapi-phone-number',
         number: '+1234567890',
         name: 'Vapi Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const vapiPhoneNumber: PhoneNumber = {
         ...mockPhoneNumber,
         provider: 'vapi-phone-number',
-        providerId: 'vapi_prov_1'
+        providerId: 'vapi_prov_1',
       };
 
       const expectedResponse: PhoneNumberResponseDto = {
         ...mockPhoneNumberResponse,
         provider: 'vapi-phone-number',
-        providerId: 'vapi_prov_1'
+        providerId: 'vapi_prov_1',
       };
 
       repository.create.mockResolvedValue(vapiPhoneNumber);
@@ -311,19 +311,19 @@ describe('PhoneNumberService', () => {
         provider: 'vonage-phone-number',
         number: '+1234567890',
         name: 'Vonage Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const vonagePhoneNumber: PhoneNumber = {
         ...mockPhoneNumber,
         provider: 'vonage-phone-number',
-        providerId: 'vonage_prov_1'
+        providerId: 'vonage_prov_1',
       };
 
       const expectedResponse: PhoneNumberResponseDto = {
         ...mockPhoneNumberResponse,
         provider: 'vonage-phone-number',
-        providerId: 'vonage_prov_1'
+        providerId: 'vonage_prov_1',
       };
 
       repository.create.mockResolvedValue(vonagePhoneNumber);
@@ -341,19 +341,19 @@ describe('PhoneNumberService', () => {
         provider: 'telnyx-phone-number',
         number: '+1234567890',
         name: 'Telnyx Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const telnyxPhoneNumber: PhoneNumber = {
         ...mockPhoneNumber,
         provider: 'telnyx-phone-number',
-        providerId: 'telnyx_prov_1'
+        providerId: 'telnyx_prov_1',
       };
 
       const expectedResponse: PhoneNumberResponseDto = {
         ...mockPhoneNumberResponse,
         provider: 'telnyx-phone-number',
-        providerId: 'telnyx_prov_1'
+        providerId: 'telnyx_prov_1',
       };
 
       repository.create.mockResolvedValue(telnyxPhoneNumber);
@@ -369,14 +369,14 @@ describe('PhoneNumberService', () => {
       const createDto: CreatePhoneNumberRequestDto = {
         credentialId: 'credential_123',
         provider: 'byo-phone-number',
-        number: '+1234567890'
+        number: '+1234567890',
       };
 
       const error = new Error('Repository creation error');
       repository.create.mockRejectedValue(error);
 
       await expect(service.create(createDto)).rejects.toThrow(
-        'Repository creation error'
+        'Repository creation error',
       );
       expect(repository.create).toHaveBeenCalledWith(createDto);
     });
@@ -394,20 +394,20 @@ describe('PhoneNumberService', () => {
           credentialId: 'webhook_cred_123',
           timeoutSeconds: 30,
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         },
         fallbackDestination: {
           type: 'assistant',
           assistantId: 'fallback_assistant_123',
-          message: 'Transferring to fallback assistant'
-        }
+          message: 'Transferring to fallback assistant',
+        },
       };
 
       const complexPhoneNumber: PhoneNumber = {
         ...mockPhoneNumber,
         description: 'Complex configuration phone number',
-        friendlyName: 'Complex Phone Number'
+        friendlyName: 'Complex Phone Number',
       };
 
       repository.create.mockResolvedValue(complexPhoneNumber);
@@ -444,7 +444,7 @@ describe('PhoneNumberService', () => {
         description: undefined,
         friendlyName: undefined,
         tags: undefined,
-        metadata: undefined
+        metadata: undefined,
       };
 
       const result = service['mapToResponseDto'](phoneNumberWithUndefined);

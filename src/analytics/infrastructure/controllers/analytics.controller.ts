@@ -12,7 +12,8 @@ export class AnalyticsController {
   @Post()
   @ApiOperation({
     summary: 'Create analytics queries to retrieve data insights',
-    description: 'Execute analytics queries against various tables (calls, assistants, campaigns, etc.) with customizable operations and filters'
+    description:
+      'Execute analytics queries against various tables (calls, assistants, campaigns, etc.) with customizable operations and filters',
   })
   @ApiBody({
     type: CreateAnalyticsRequestDto,
@@ -28,18 +29,18 @@ export class AnalyticsController {
               name: 'call-duration-summary',
               operations: [
                 { operation: 'sum', column: 'duration' },
-                { operation: 'count', column: 'id' }
+                { operation: 'count', column: 'id' },
               ],
               groupBy: ['assistantId', 'endedReason'],
               timeRange: {
                 start: '2024-01-01T00:00:00Z',
                 end: '2024-01-31T23:59:59Z',
                 step: 'day',
-                timezone: 'UTC'
-              }
-            }
-          ]
-        }
+                timezone: 'UTC',
+              },
+            },
+          ],
+        },
       },
       assistantPerformance: {
         summary: 'Assistant Performance',
@@ -51,15 +52,15 @@ export class AnalyticsController {
               name: 'assistant-performance',
               operations: [
                 { operation: 'avg', column: 'successRate' },
-                { operation: 'max', column: 'totalCalls' }
+                { operation: 'max', column: 'totalCalls' },
               ],
               filters: { status: 'active' },
-              groupBy: ['assistantId']
-            }
-          ]
-        }
-      }
-    }
+              groupBy: ['assistantId'],
+            },
+          ],
+        },
+      },
+    },
   })
   @ApiResponse({
     status: 200,
@@ -72,7 +73,7 @@ export class AnalyticsController {
           step: 'day',
           start: '2024-01-01T00:00:00Z',
           end: '2024-01-31T23:59:59Z',
-          timezone: 'UTC'
+          timezone: 'UTC',
         },
         result: [
           {
@@ -80,30 +81,30 @@ export class AnalyticsController {
             assistantId: 'assistant_123',
             endedReason: 'customer-ended-call',
             sumDuration: 1200,
-            countId: 5
+            countId: 5,
           },
           {
             date: '2024-01-02',
             assistantId: 'assistant_456',
             endedReason: 'assistant-ended-call',
             sumDuration: 800,
-            countId: 3
-          }
-        ]
-      }
-    ]
+            countId: 3,
+          },
+        ],
+      },
+    ],
   })
   @ApiResponse({
     status: 400,
-    description: 'Bad request - Invalid query parameters'
+    description: 'Bad request - Invalid query parameters',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Invalid API key'
+    description: 'Unauthorized - Invalid API key',
   })
   @ApiResponse({
     status: 500,
-    description: 'Internal server error'
+    description: 'Internal server error',
   })
   async createAnalytics(
     @Body() request: CreateAnalyticsRequestDto,
