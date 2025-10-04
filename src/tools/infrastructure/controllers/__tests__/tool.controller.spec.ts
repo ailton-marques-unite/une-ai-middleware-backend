@@ -3,7 +3,11 @@ import { ToolController } from '../tool.controller';
 import { ToolService } from '../../../application/services/tool.service';
 import { ListToolsQueryDto } from '../../../application/dtos/list-tools-query.dto';
 import { ToolResponseDto } from '../../../application/dtos/tool-response.dto';
-import { ToolType, ToolStatus, HttpMethod } from '../../../domain/entities/tool.entity';
+import {
+  ToolType,
+  ToolStatus,
+  HttpMethod,
+} from '../../../domain/entities/tool.entity';
 
 describe('ToolController', () => {
   let controller: ToolController;
@@ -24,9 +28,9 @@ describe('ToolController', () => {
           name: 'location',
           type: 'string',
           description: 'City name or coordinates',
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     },
     version: '1.0.0',
     category: 'weather',
@@ -38,7 +42,7 @@ describe('ToolController', () => {
     averageResponseTime: 250,
     enabled: true,
     createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z'
+    updatedAt: '2024-01-01T00:00:00Z',
   };
 
   beforeEach(async () => {
@@ -82,7 +86,7 @@ describe('ToolController', () => {
     it('should return tools filtered by status', async () => {
       const query: ListToolsQueryDto = {
         status: ToolStatus.ACTIVE,
-        limit: 50
+        limit: 50,
       };
 
       const expectedTools = [mockToolResponse];
@@ -98,7 +102,7 @@ describe('ToolController', () => {
     it('should return tools filtered by type', async () => {
       const query: ListToolsQueryDto = {
         type: ToolType.FUNCTION,
-        limit: 25
+        limit: 25,
       };
 
       const expectedTools = [mockToolResponse];
@@ -118,7 +122,7 @@ describe('ToolController', () => {
         category: 'weather',
         isPublic: true,
         enabled: true,
-        limit: 10
+        limit: 10,
       };
 
       const expectedTools = [mockToolResponse];
@@ -137,7 +141,7 @@ describe('ToolController', () => {
       const query: ListToolsQueryDto = {
         createdAtGt: '2024-01-01T00:00:00Z',
         createdAtLe: '2024-12-31T23:59:59Z',
-        updatedAtGe: '2024-01-01T00:00:00Z'
+        updatedAtGe: '2024-01-01T00:00:00Z',
       };
 
       const expectedTools = [mockToolResponse];
@@ -156,7 +160,7 @@ describe('ToolController', () => {
         minSuccessRate: 90,
         maxSuccessRate: 100,
         minAverageResponseTime: 100,
-        maxAverageResponseTime: 1000
+        maxAverageResponseTime: 1000,
       };
 
       const expectedTools = [mockToolResponse];
@@ -175,7 +179,7 @@ describe('ToolController', () => {
         author: 'john.doe@example.com',
         tag: 'api',
         name: 'Weather',
-        description: 'weather information'
+        description: 'weather information',
       };
 
       const expectedTools = [mockToolResponse];
@@ -193,7 +197,7 @@ describe('ToolController', () => {
       const query: ListToolsQueryDto = {
         environment: 'production',
         region: 'us-east-1',
-        version: '1.0.0'
+        version: '1.0.0',
       };
 
       const expectedTools = [mockToolResponse];
@@ -209,7 +213,7 @@ describe('ToolController', () => {
     it('should return empty array when no tools match criteria', async () => {
       const query: ListToolsQueryDto = {
         status: ToolStatus.INACTIVE,
-        category: 'non-existent'
+        category: 'non-existent',
       };
 
       service.findAll.mockResolvedValue([]);
@@ -228,7 +232,7 @@ describe('ToolController', () => {
       service.findAll.mockRejectedValue(error);
 
       await expect(controller.findAll(query)).rejects.toThrow(
-        'Tool service unavailable'
+        'Tool service unavailable',
       );
       expect(service.findAll).toHaveBeenCalledWith(query);
     });
@@ -241,7 +245,7 @@ describe('ToolController', () => {
           ...mockToolResponse,
           id: 'tool_1',
           type: ToolType.FUNCTION,
-          name: 'Weather Tool'
+          name: 'Weather Tool',
         },
         {
           ...mockToolResponse,
@@ -251,8 +255,8 @@ describe('ToolController', () => {
           webhook: {
             url: 'https://api.example.com/webhook',
             method: HttpMethod.POST,
-            headers: { 'Content-Type': 'application/json' }
-          }
+            headers: { 'Content-Type': 'application/json' },
+          },
         },
         {
           ...mockToolResponse,
@@ -262,9 +266,9 @@ describe('ToolController', () => {
           endpoint: {
             url: 'https://api.example.com/db',
             method: HttpMethod.GET,
-            headers: { 'Authorization': 'Bearer token' }
-          }
-        }
+            headers: { Authorization: 'Bearer token' },
+          },
+        },
       ];
 
       service.findAll.mockResolvedValue(expectedTools);
@@ -306,7 +310,7 @@ describe('ToolController', () => {
         updatedAtGt: '2024-01-01T00:00:00Z',
         updatedAtLt: '2024-12-31T23:59:59Z',
         updatedAtGe: '2024-01-01T00:00:00Z',
-        updatedAtLe: '2024-12-31T23:59:59Z'
+        updatedAtLe: '2024-12-31T23:59:59Z',
       };
 
       const expectedTools = [mockToolResponse];
@@ -320,7 +324,7 @@ describe('ToolController', () => {
 
     it('should handle limit validation', async () => {
       const query: ListToolsQueryDto = {
-        limit: 1000 // Max limit
+        limit: 1000, // Max limit
       };
 
       const expectedTools = [mockToolResponse];
@@ -339,20 +343,20 @@ describe('ToolController', () => {
         {
           ...mockToolResponse,
           id: 'tool_active',
-          status: ToolStatus.ACTIVE
+          status: ToolStatus.ACTIVE,
         },
         {
           ...mockToolResponse,
           id: 'tool_pending',
-          status: ToolStatus.PENDING
+          status: ToolStatus.PENDING,
         },
         {
           ...mockToolResponse,
           id: 'tool_error',
           status: ToolStatus.ERROR,
           lastErrorAt: '2024-01-15T10:30:00Z',
-          lastErrorMessage: 'Connection timeout'
-        }
+          lastErrorMessage: 'Connection timeout',
+        },
       ];
 
       service.findAll.mockResolvedValue(expectedTools);

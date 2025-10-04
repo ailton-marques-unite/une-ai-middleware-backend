@@ -4,7 +4,10 @@ import { PhoneNumberService } from '../../../application/services/phone-number.s
 import { CreatePhoneNumberRequestDto } from '../../../application/dtos/phone-number-request.dto';
 import { PhoneNumberResponseDto } from '../../../application/dtos/phone-number-response.dto';
 import { NotFoundException } from '@nestjs/common';
-import { PhoneNumberStatus, PhoneNumberType } from '../../../domain/entities/phone-number.entity';
+import {
+  PhoneNumberStatus,
+  PhoneNumberType,
+} from '../../../domain/entities/phone-number.entity';
 
 describe('PhoneNumberController', () => {
   let controller: PhoneNumberController;
@@ -24,13 +27,13 @@ describe('PhoneNumberController', () => {
       voice: true,
       sms: true,
       mms: false,
-      fax: false
+      fax: false,
     },
     cost: {
-      monthly: 1.00,
-      setup: 0.00,
+      monthly: 1.0,
+      setup: 0.0,
       perMinute: 0.01,
-      currency: 'USD'
+      currency: 'USD',
     },
     description: 'Main business line',
     friendlyName: 'Business Phone',
@@ -41,7 +44,7 @@ describe('PhoneNumberController', () => {
     tags: ['business', 'main'],
     metadata: {
       department: 'sales',
-      location: 'office'
+      location: 'office',
     },
     createdAt: '2024-01-01T00:00:00Z',
     updatedAt: '2024-01-01T00:00:00Z',
@@ -70,7 +73,7 @@ describe('PhoneNumberController', () => {
     smsFallbackUrl: null,
     smsMethod: 'POST',
     statusCallbackEvent: 'initiated,answered,completed',
-    statusCallbackUrl: 'https://api.example.com/status'
+    statusCallbackUrl: 'https://api.example.com/status',
   };
 
   beforeEach(async () => {
@@ -104,7 +107,7 @@ describe('PhoneNumberController', () => {
         provider: 'byo-phone-number',
         number: '+1234567890',
         name: 'Test Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       service.create.mockResolvedValue(mockPhoneNumberResponse);
@@ -123,12 +126,12 @@ describe('PhoneNumberController', () => {
         provider: 'twilio-phone-number',
         number: '+1234567890',
         name: 'Twilio Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const expectedResponse = {
         ...mockPhoneNumberResponse,
-        provider: 'twilio-phone-number'
+        provider: 'twilio-phone-number',
       };
 
       service.create.mockResolvedValue(expectedResponse);
@@ -145,12 +148,12 @@ describe('PhoneNumberController', () => {
         provider: 'vapi-phone-number',
         number: '+1234567890',
         name: 'Vapi Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const expectedResponse = {
         ...mockPhoneNumberResponse,
-        provider: 'vapi-phone-number'
+        provider: 'vapi-phone-number',
       };
 
       service.create.mockResolvedValue(expectedResponse);
@@ -167,12 +170,12 @@ describe('PhoneNumberController', () => {
         provider: 'vonage-phone-number',
         number: '+1234567890',
         name: 'Vonage Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const expectedResponse = {
         ...mockPhoneNumberResponse,
-        provider: 'vonage-phone-number'
+        provider: 'vonage-phone-number',
       };
 
       service.create.mockResolvedValue(expectedResponse);
@@ -189,12 +192,12 @@ describe('PhoneNumberController', () => {
         provider: 'telnyx-phone-number',
         number: '+1234567890',
         name: 'Telnyx Phone Number',
-        assistantId: 'assistant_123'
+        assistantId: 'assistant_123',
       };
 
       const expectedResponse = {
         ...mockPhoneNumberResponse,
-        provider: 'telnyx-phone-number'
+        provider: 'telnyx-phone-number',
       };
 
       service.create.mockResolvedValue(expectedResponse);
@@ -209,14 +212,14 @@ describe('PhoneNumberController', () => {
       const createDto: CreatePhoneNumberRequestDto = {
         credentialId: 'credential_123',
         provider: 'byo-phone-number',
-        number: '+1234567890'
+        number: '+1234567890',
       };
 
       const error = new Error('Phone number service error');
       service.create.mockRejectedValue(error);
 
       await expect(controller.create(createDto)).rejects.toThrow(
-        'Phone number service error'
+        'Phone number service error',
       );
       expect(service.create).toHaveBeenCalledWith(createDto);
     });
@@ -234,20 +237,20 @@ describe('PhoneNumberController', () => {
           credentialId: 'webhook_cred_123',
           timeoutSeconds: 30,
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         },
         fallbackDestination: {
           type: 'assistant',
           assistantId: 'fallback_assistant_123',
-          message: 'Transferring to fallback assistant'
-        }
+          message: 'Transferring to fallback assistant',
+        },
       };
 
       const expectedResponse = {
         ...mockPhoneNumberResponse,
         description: 'Complex configuration phone number',
-        friendlyName: 'Complex Phone Number'
+        friendlyName: 'Complex Phone Number',
       };
 
       service.create.mockResolvedValue(expectedResponse);
@@ -263,14 +266,14 @@ describe('PhoneNumberController', () => {
       const createDto: CreatePhoneNumberRequestDto = {
         credentialId: '',
         provider: 'invalid-provider' as any,
-        number: 'invalid-number'
+        number: 'invalid-number',
       };
 
       const error = new Error('Validation failed');
       service.create.mockRejectedValue(error);
 
       await expect(controller.create(createDto)).rejects.toThrow(
-        'Validation failed'
+        'Validation failed',
       );
       expect(service.create).toHaveBeenCalledWith(createDto);
     });
@@ -291,11 +294,11 @@ describe('PhoneNumberController', () => {
 
     it('should throw NotFoundException when phone number is not found', async () => {
       const id = 'non_existent_id';
-      service.findById.mockRejectedValue(new NotFoundException(`Phone number with ID ${id} not found`));
-
-      await expect(controller.findOne(id)).rejects.toThrow(
-        NotFoundException
+      service.findById.mockRejectedValue(
+        new NotFoundException(`Phone number with ID ${id} not found`),
       );
+
+      await expect(controller.findOne(id)).rejects.toThrow(NotFoundException);
       expect(service.findById).toHaveBeenCalledWith(id);
     });
 
@@ -305,7 +308,7 @@ describe('PhoneNumberController', () => {
       service.findById.mockRejectedValue(error);
 
       await expect(controller.findOne(id)).rejects.toThrow(
-        'Phone number service error'
+        'Phone number service error',
       );
       expect(service.findById).toHaveBeenCalledWith(id);
     });
@@ -315,7 +318,7 @@ describe('PhoneNumberController', () => {
       const inactivePhoneNumber = {
         ...mockPhoneNumberResponse,
         id: 'ph_inactive',
-        status: PhoneNumberStatus.INACTIVE
+        status: PhoneNumberStatus.INACTIVE,
       };
 
       service.findById.mockResolvedValue(inactivePhoneNumber);
@@ -332,7 +335,7 @@ describe('PhoneNumberController', () => {
         ...mockPhoneNumberResponse,
         id: 'ph_toll_free',
         type: PhoneNumberType.TOLL_FREE,
-        number: '+1800123456'
+        number: '+1800123456',
       };
 
       service.findById.mockResolvedValue(tollFreePhoneNumber);
@@ -353,7 +356,7 @@ describe('PhoneNumberController', () => {
         description: undefined,
         friendlyName: undefined,
         tags: undefined,
-        metadata: undefined
+        metadata: undefined,
       };
 
       service.findById.mockResolvedValue(minimalPhoneNumber);
@@ -372,14 +375,14 @@ describe('PhoneNumberController', () => {
       const createDto: CreatePhoneNumberRequestDto = {
         credentialId: 'credential_123',
         provider: 'byo-phone-number',
-        number: '+1234567890'
+        number: '+1234567890',
       };
 
       const error = new Error('Unexpected error');
       service.create.mockRejectedValue(error);
 
       await expect(controller.create(createDto)).rejects.toThrow(
-        'Unexpected error'
+        'Unexpected error',
       );
     });
 
@@ -388,9 +391,7 @@ describe('PhoneNumberController', () => {
       const error = new Error('Unexpected error');
       service.findById.mockRejectedValue(error);
 
-      await expect(controller.findOne(id)).rejects.toThrow(
-        'Unexpected error'
-      );
+      await expect(controller.findOne(id)).rejects.toThrow('Unexpected error');
     });
   });
 });

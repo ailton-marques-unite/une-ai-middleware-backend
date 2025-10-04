@@ -20,7 +20,9 @@ export class AnalyticsRepository implements AnalyticsRepositoryInterface {
     return { Authorization: `Bearer ${token}` };
   }
 
-  async createAnalytics(request: CreateAnalyticsRequestDto): Promise<AnalyticsResultDto[]> {
+  async createAnalytics(
+    request: CreateAnalyticsRequestDto,
+  ): Promise<AnalyticsResultDto[]> {
     const response = await firstValueFrom(
       this.httpService.post<AnalyticsResultDto[]>(this.baseUrl, request, {
         headers: this.getAuthHeader(),

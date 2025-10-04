@@ -1,10 +1,17 @@
-import { IsString, IsOptional, IsObject, IsBoolean, IsNumber, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsObject,
+  IsBoolean,
+  IsNumber,
+  IsArray,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Credential ID for Twilio provider',
-    example: 'credential_twilio_123'
+    example: 'credential_twilio_123',
   })
   @IsString()
   credentialId: string;
@@ -12,7 +19,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Phone number in E.164 format',
     example: '+1234567890',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -21,7 +28,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Name for the phone number',
     example: 'Twilio Business Line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -30,7 +37,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Description of the phone number',
     example: 'Twilio-powered business line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -39,7 +46,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Assistant ID to associate with this phone number',
     example: 'assistant_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -48,7 +55,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Workflow ID to associate with this phone number',
     example: 'workflow_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -57,7 +64,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Squad ID to associate with this phone number',
     example: 'squad_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -66,7 +73,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Enable E164 number validation',
     example: true,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -74,14 +81,14 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Provider type',
-    example: 'twilio-phone-number'
+    example: 'twilio-phone-number',
   })
   @IsString()
   provider: 'twilio-phone-number';
 
   @ApiProperty({
     description: 'Twilio Account SID',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -89,7 +96,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Twilio Application SID',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -98,7 +105,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Voice URL for incoming calls',
     example: 'https://example.com/voice',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -107,7 +114,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'SMS URL for incoming messages',
     example: 'https://example.com/sms',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -116,7 +123,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Status callback URL',
     example: 'https://example.com/status',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -125,7 +132,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Voice method for HTTP requests',
     example: 'POST',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -134,7 +141,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'SMS method for HTTP requests',
     example: 'POST',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -142,7 +149,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Voice fallback URL',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -150,7 +157,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'SMS fallback URL',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -159,7 +166,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Voice fallback method',
     example: 'POST',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -168,7 +175,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'SMS fallback method',
     example: 'POST',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -177,7 +184,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Voice caller ID lookup',
     example: 'true',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -186,7 +193,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Voice receive mode',
     example: 'voice',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -195,7 +202,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Address requirements',
     example: 'none',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -204,7 +211,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Beta phone number flag',
     example: false,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -212,7 +219,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Emergency address SID',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -221,7 +228,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Emergency status',
     example: 'Active',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -229,7 +236,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Identity SID',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -238,7 +245,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Origin of the phone number',
     example: 'twilio',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -246,7 +253,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Trunk SID',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -255,7 +262,7 @@ export class CreateTwilioPhoneNumberDto {
   @ApiProperty({
     description: 'Friendly name',
     example: 'My Twilio Number',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -263,7 +270,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Phone number SID from Twilio',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -271,7 +278,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'URI of the phone number resource',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -279,7 +286,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Voice application SID',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -287,7 +294,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'SMS application SID',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -295,7 +302,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Status callback event',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -303,7 +310,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Status callback URL',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -311,7 +318,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Server configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -330,7 +337,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Fallback destination configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -366,7 +373,7 @@ export class CreateTwilioPhoneNumberDto {
 
   @ApiProperty({
     description: 'Hooks configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   hooks?: Array<{

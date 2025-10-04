@@ -8,7 +8,9 @@ import { AnalyticsResultDto } from '../dtos/analytics-result.dto';
 export class AnalyticsService implements AnalyticsServiceInterface {
   constructor(private readonly analyticsRepository: AnalyticsRepository) {}
 
-  async createAnalytics(request: CreateAnalyticsRequestDto): Promise<AnalyticsResultDto[]> {
+  async createAnalytics(
+    request: CreateAnalyticsRequestDto,
+  ): Promise<AnalyticsResultDto[]> {
     return await this.analyticsRepository.createAnalytics(request);
   }
 }

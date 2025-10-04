@@ -5,7 +5,7 @@ export class AnalyticsTimeRangeDto {
   @ApiProperty({
     description: 'Time step for the query',
     example: 'second',
-    enum: ['second', 'minute', 'hour', 'day', 'week', 'month', 'year']
+    enum: ['second', 'minute', 'hour', 'day', 'week', 'month', 'year'],
   })
   @IsString()
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class AnalyticsTimeRangeDto {
 
   @ApiProperty({
     description: 'Start date/time (ISO 8601 format)',
-    example: '2024-01-15T09:30:00Z'
+    example: '2024-01-15T09:30:00Z',
   })
   @IsString()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class AnalyticsTimeRangeDto {
 
   @ApiProperty({
     description: 'End date/time (ISO 8601 format)',
-    example: '2024-01-15T10:30:00Z'
+    example: '2024-01-15T10:30:00Z',
   })
   @IsString()
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class AnalyticsTimeRangeDto {
   @ApiProperty({
     description: 'Timezone for the query',
     example: 'UTC',
-    required: false
+    required: false,
   })
   @IsString()
   @IsOptional()

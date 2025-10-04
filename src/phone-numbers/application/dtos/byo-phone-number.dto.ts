@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Credential ID for the phone number provider',
-    example: 'credential_123456789'
+    example: 'credential_123456789',
   })
   @IsString()
   credentialId: string;
@@ -12,7 +12,7 @@ export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Phone number in E.164 format',
     example: '+1234567890',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -21,7 +21,7 @@ export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Name for the phone number',
     example: 'My Business Line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -30,7 +30,7 @@ export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Description of the phone number',
     example: 'Main business phone line',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -39,7 +39,7 @@ export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Assistant ID to associate with this phone number',
     example: 'assistant_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -48,7 +48,7 @@ export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Workflow ID to associate with this phone number',
     example: 'workflow_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -57,7 +57,7 @@ export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Squad ID to associate with this phone number',
     example: 'squad_123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -66,21 +66,21 @@ export class CreateByoPhoneNumberDto {
   @ApiProperty({
     description: 'Enable E164 number validation',
     example: true,
-    required: false
+    required: false,
   })
   @IsOptional()
   numberE164CheckEnabled?: boolean;
 
   @ApiProperty({
     description: 'Provider type',
-    example: 'byo-phone-number'
+    example: 'byo-phone-number',
   })
   @IsString()
   provider: 'byo-phone-number';
 
   @ApiProperty({
     description: 'Server configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -99,7 +99,7 @@ export class CreateByoPhoneNumberDto {
 
   @ApiProperty({
     description: 'Fallback destination configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -135,7 +135,7 @@ export class CreateByoPhoneNumberDto {
 
   @ApiProperty({
     description: 'Hooks configuration',
-    required: false
+    required: false,
   })
   @IsOptional()
   hooks?: Array<{

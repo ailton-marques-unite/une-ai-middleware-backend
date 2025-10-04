@@ -9,6 +9,10 @@ import { AssistantServiceInterface } from './assistant.service.interface';
 @Injectable()
 export class AssistantService implements AssistantServiceInterface {
   constructor(private readonly assistantRepository: AssistantRepository) {}
+  
+    async create(data: CreateAssistantDto): Promise<Assistant> {
+      return this.assistantRepository.create(data);
+    }
 
   async findAll(query: ListAssistantsQueryDto): Promise<Assistant[]> {
     return this.assistantRepository.findAll(query);
@@ -20,10 +24,6 @@ export class AssistantService implements AssistantServiceInterface {
       throw new NotFoundException(`Assistant with ID ${id} not found`);
     }
     return assistant;
-  }
-
-  async create(data: CreateAssistantDto): Promise<Assistant> {
-    return this.assistantRepository.create(data);
   }
 
   async update(id: string, data: UpdateAssistantDto): Promise<Assistant> {

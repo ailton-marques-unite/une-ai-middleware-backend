@@ -1,5 +1,8 @@
 // Main request DTO
-export { CreatePhoneNumberRequestDto, PhoneNumberProviderDto } from './phone-number-request.dto';
+export {
+  CreatePhoneNumberRequestDto,
+  PhoneNumberProviderDto,
+} from './phone-number-request.dto';
 
 // Provider-specific DTOs
 export { CreateByoPhoneNumberDto } from './byo-phone-number.dto';

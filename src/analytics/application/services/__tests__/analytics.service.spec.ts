@@ -14,7 +14,7 @@ describe('AnalyticsService', () => {
       step: 'day',
       start: '2024-01-01T00:00:00Z',
       end: '2024-01-31T23:59:59Z',
-      timezone: 'UTC'
+      timezone: 'UTC',
     },
     result: [
       {
@@ -22,9 +22,9 @@ describe('AnalyticsService', () => {
         assistantId: 'assistant_123',
         endedReason: 'customer-ended-call',
         sumDuration: 1200,
-        countId: 5
-      }
-    ]
+        countId: 5,
+      },
+    ],
   };
 
   const mockRepository = {
@@ -63,17 +63,17 @@ describe('AnalyticsService', () => {
             name: 'call-duration-summary',
             operations: [
               { operation: 'sum', column: 'duration' },
-              { operation: 'count', column: 'id' }
+              { operation: 'count', column: 'id' },
             ],
             groupBy: ['assistantId', 'endedReason'],
             timeRange: {
               start: '2024-01-01T00:00:00Z',
               end: '2024-01-31T23:59:59Z',
               step: 'day',
-              timezone: 'UTC'
-            }
-          }
-        ]
+              timezone: 'UTC',
+            },
+          },
+        ],
       };
 
       repository.createAnalytics.mockResolvedValue([mockAnalyticsResult]);
@@ -93,18 +93,14 @@ describe('AnalyticsService', () => {
           {
             table: 'call',
             name: 'call-duration-summary',
-            operations: [
-              { operation: 'sum', column: 'duration' }
-            ]
+            operations: [{ operation: 'sum', column: 'duration' }],
           },
           {
             table: 'assistant',
             name: 'assistant-performance',
-            operations: [
-              { operation: 'avg', column: 'successRate' }
-            ]
-          }
-        ]
+            operations: [{ operation: 'avg', column: 'successRate' }],
+          },
+        ],
       };
 
       const expectedResults: AnalyticsResultDto[] = [
@@ -114,9 +110,9 @@ describe('AnalyticsService', () => {
             step: 'day',
             start: '2024-01-01T00:00:00Z',
             end: '2024-01-31T23:59:59Z',
-            timezone: 'UTC'
+            timezone: 'UTC',
           },
-          result: []
+          result: [],
         },
         {
           name: 'assistant-performance',
@@ -124,10 +120,10 @@ describe('AnalyticsService', () => {
             step: 'day',
             start: '2024-01-01T00:00:00Z',
             end: '2024-01-31T23:59:59Z',
-            timezone: 'UTC'
+            timezone: 'UTC',
           },
-          result: []
-        }
+          result: [],
+        },
       ];
 
       repository.createAnalytics.mockResolvedValue(expectedResults);
@@ -147,12 +143,10 @@ describe('AnalyticsService', () => {
           {
             table: 'call',
             name: 'empty-analytics',
-            operations: [
-              { operation: 'count', column: 'id' }
-            ],
-            filters: { status: 'non-existent' }
-          }
-        ]
+            operations: [{ operation: 'count', column: 'id' }],
+            filters: { status: 'non-existent' },
+          },
+        ],
       };
 
       const expectedResult: AnalyticsResultDto = {
@@ -161,9 +155,9 @@ describe('AnalyticsService', () => {
           step: 'day',
           start: '2024-01-01T00:00:00Z',
           end: '2024-01-31T23:59:59Z',
-          timezone: 'UTC'
+          timezone: 'UTC',
         },
-        result: []
+        result: [],
       };
 
       repository.createAnalytics.mockResolvedValue([expectedResult]);
@@ -181,18 +175,16 @@ describe('AnalyticsService', () => {
           {
             table: 'call',
             name: 'error-analytics',
-            operations: [
-              { operation: 'sum', column: 'duration' }
-            ]
-          }
-        ]
+            operations: [{ operation: 'sum', column: 'duration' }],
+          },
+        ],
       };
 
       const error = new Error('Analytics repository error');
       repository.createAnalytics.mockRejectedValue(error);
 
       await expect(service.createAnalytics(request)).rejects.toThrow(
-        'Analytics repository error'
+        'Analytics repository error',
       );
       expect(repository.createAnalytics).toHaveBeenCalledWith(request);
     });
@@ -205,21 +197,21 @@ describe('AnalyticsService', () => {
             name: 'filtered-call-analytics',
             operations: [
               { operation: 'sum', column: 'duration' },
-              { operation: 'avg', column: 'cost' }
+              { operation: 'avg', column: 'cost' },
             ],
             filters: {
               status: 'completed',
-              assistantId: 'assistant_123'
+              assistantId: 'assistant_123',
             },
             groupBy: ['endedReason'],
             timeRange: {
               start: '2024-01-01T00:00:00Z',
               end: '2024-01-31T23:59:59Z',
               step: 'day',
-              timezone: 'UTC'
-            }
-          }
-        ]
+              timezone: 'UTC',
+            },
+          },
+        ],
       };
 
       const expectedResult: AnalyticsResultDto = {
@@ -228,15 +220,15 @@ describe('AnalyticsService', () => {
           step: 'day',
           start: '2024-01-01T00:00:00Z',
           end: '2024-01-31T23:59:59Z',
-          timezone: 'UTC'
+          timezone: 'UTC',
         },
         result: [
           {
             endedReason: 'customer-ended-call',
             sumDuration: 1500,
-            avgCost: 12.5
-          }
-        ]
+            avgCost: 12.5,
+          },
+        ],
       };
 
       repository.createAnalytics.mockResolvedValue([expectedResult]);
@@ -257,11 +249,11 @@ describe('AnalyticsService', () => {
             name: 'session-analytics',
             operations: [
               { operation: 'count', column: 'id' },
-              { operation: 'avg', column: 'duration' }
+              { operation: 'avg', column: 'duration' },
             ],
-            groupBy: ['assistantId', 'status']
-          }
-        ]
+            groupBy: ['assistantId', 'status'],
+          },
+        ],
       };
 
       const expectedResult: AnalyticsResultDto = {
@@ -270,16 +262,16 @@ describe('AnalyticsService', () => {
           step: 'hour',
           start: '2024-01-01T00:00:00Z',
           end: '2024-01-31T23:59:59Z',
-          timezone: 'UTC'
+          timezone: 'UTC',
         },
         result: [
           {
             assistantId: 'assistant_123',
             status: 'completed',
             countId: 25,
-            avgDuration: 180
-          }
-        ]
+            avgDuration: 180,
+          },
+        ],
       };
 
       repository.createAnalytics.mockResolvedValue([expectedResult]);

@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty, IsArray, ValidateNested, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsArray,
+  ValidateNested,
+  IsOptional,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { AnalyticsOperationDto } from './analytics-operation.dto';
@@ -7,7 +13,7 @@ export class AnalyticsQueryDto {
   @ApiProperty({
     description: 'The table to query (e.g., call, assistant, campaign)',
     example: 'call',
-    enum: ['call', 'assistant', 'campaign', 'session', 'phone-number', 'tool']
+    enum: ['call', 'assistant', 'campaign', 'session', 'phone-number', 'tool'],
   })
   @IsString()
   @IsNotEmpty()
@@ -15,7 +21,7 @@ export class AnalyticsQueryDto {
 
   @ApiProperty({
     description: 'Unique name for this query',
-    example: 'call-duration-summary'
+    example: 'call-duration-summary',
   })
   @IsString()
   @IsNotEmpty()
@@ -23,7 +29,7 @@ export class AnalyticsQueryDto {
 
   @ApiProperty({
     description: 'List of operations to perform on the data',
-    type: [AnalyticsOperationDto]
+    type: [AnalyticsOperationDto],
   })
   @IsArray()
   @ValidateNested({ each: true })
@@ -33,7 +39,7 @@ export class AnalyticsQueryDto {
   @ApiProperty({
     description: 'Optional filters to apply to the query',
     required: false,
-    example: { assistantId: '123', status: 'completed' }
+    example: { assistantId: '123', status: 'completed' },
   })
   @IsOptional()
   filters?: Record<string, any>;
@@ -41,7 +47,7 @@ export class AnalyticsQueryDto {
   @ApiProperty({
     description: 'Group by fields for aggregation',
     required: false,
-    example: ['assistantId', 'status']
+    example: ['assistantId', 'status'],
   })
   @IsOptional()
   @IsArray()
@@ -54,8 +60,8 @@ export class AnalyticsQueryDto {
       start: '2024-01-01T00:00:00Z',
       end: '2024-01-31T23:59:59Z',
       step: 'day',
-      timezone: 'UTC'
-    }
+      timezone: 'UTC',
+    },
   })
   @IsOptional()
   timeRange?: {

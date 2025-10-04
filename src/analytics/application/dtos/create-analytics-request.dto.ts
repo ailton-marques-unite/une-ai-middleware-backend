@@ -7,7 +7,7 @@ export class CreateAnalyticsRequestDto {
   @ApiProperty({
     description: 'List of analytics queries to execute',
     type: [AnalyticsQueryDto],
-    minItems: 1
+    minItems: 1,
   })
   @IsArray()
   @ArrayMinSize(1)

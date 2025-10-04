@@ -2,5 +2,7 @@ import { CreateAnalyticsRequestDto } from '../../application/dtos/create-analyti
 import { AnalyticsResultDto } from '../../application/dtos/analytics-result.dto';
 
 export interface AnalyticsRepositoryInterface {
-  createAnalytics(request: CreateAnalyticsRequestDto): Promise<AnalyticsResultDto[]>;
+  createAnalytics(
+    request: CreateAnalyticsRequestDto,
+  ): Promise<AnalyticsResultDto[]>;
 }
