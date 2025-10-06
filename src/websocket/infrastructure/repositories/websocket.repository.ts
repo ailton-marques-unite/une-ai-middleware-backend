@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { CreateWebsocketDto } from '@/websocket/dto/create-websocket.dto';
-import { SetWebsocketResponseDto } from '@/websocket/application/dtos/responses/set-websocket-response.dto';
+import { CreateWebsocketDto } from '../../application/dtos/create-websocket.dto';
+import { SetWebsocketResponseDto } from '../../application/dtos/responses/set-websocket-response.dto';
 
 @Injectable()
 export class WebsocketRepository {

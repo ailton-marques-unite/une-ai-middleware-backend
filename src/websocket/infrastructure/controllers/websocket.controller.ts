@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { WebsocketService } from '../../application/services/websocket.service';
-import { CreateWebsocketDto } from '../../dto/create-websocket.dto';
+import { CreateWebsocketDto } from '../../application/dtos/create-websocket.dto';
 
 @Controller('websocket')
 export class WebsocketController {

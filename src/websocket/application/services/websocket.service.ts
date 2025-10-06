@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateWebsocketDto } from '../../dto/create-websocket.dto';
+import { CreateWebsocketDto } from '../dtos/create-websocket.dto';
 import { WebsocketRepository } from '../../infrastructure/repositories/websocket.repository';
 
 @Injectable()
