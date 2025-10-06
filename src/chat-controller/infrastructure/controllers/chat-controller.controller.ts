@@ -27,7 +27,7 @@ import { CreateFindStatusMessageControllerDto } from '../../application/dtos/cre
 import { CreateFindStatusMessageControllerResponseDto } from '../../application/dtos/response/create-find-status-message-controller-response';
 import { CreateFindChatsMessageControllerResponseDto } from '../../application/dtos/response/create-find-chats-message-controller-response';
 
-@ApiTags('Chat Controller')
+@ApiTags('EvolutionApi')
 @Controller('chat')
 export class ChatControllerController {
   constructor(private readonly chatControllerService: ChatControllerService) {}

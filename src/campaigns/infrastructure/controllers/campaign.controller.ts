@@ -24,7 +24,7 @@ import { UpdateCampaignDto } from '../../application/dtos/update-campaign.dto';
 import { ListCampaignsQueryDto } from '../../application/dtos/list-campaigns-query.dto';
 import { CampaignResponseDto } from '../../application/dtos/campaign-response.dto';
 
-@ApiTags('Campaigns')
+@ApiTags('Vapi')
 @Controller('campaigns')
 export class CampaignController {
   constructor(private readonly campaignService: CampaignService) {}

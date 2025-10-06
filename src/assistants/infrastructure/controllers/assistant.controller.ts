@@ -24,7 +24,7 @@ import { UpdateAssistantDto } from '../../application/dtos/update-assistant.dto'
 import { ListAssistantsQueryDto } from '../../application/dtos/list-assistants-query.dto';
 import { AssistantResponseDto } from '../../application/dtos/assistant-response.dto';
 
-@ApiTags('Assistants')
+@ApiTags('Vapi')
 @Controller('assistants')
 export class AssistantController {
   constructor(private readonly assistantService: AssistantService) {}

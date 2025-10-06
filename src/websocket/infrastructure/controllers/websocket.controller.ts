@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { WebsocketService } from '../../application/services/websocket.service';
 import { CreateWebsocketDto } from '../../application/dtos/create-websocket.dto';
 
+@ApiTags('EvolutionApi')
 @Controller('websocket')
 export class WebsocketController {
   constructor(private readonly websocketService: WebsocketService) {}

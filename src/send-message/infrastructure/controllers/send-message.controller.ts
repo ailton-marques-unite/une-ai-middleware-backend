@@ -29,7 +29,7 @@ import { SendListMessageResponse } from '../../application/dtos/responses/send-l
 import { CreateSendButtonsMessageDto } from '../../application/dtos/create-send-buttons-message.dto';
 import { SendButtonsMessageResponse } from '../../application/dtos/responses/send-buttons-message.response';
 
-@ApiTags('Send Message')
+@ApiTags('EvolutionApi')
 @Controller('message')
 export class SendMessageController {
   constructor(private readonly sendMessageService: SendMessageService) {}

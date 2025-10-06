@@ -5,7 +5,7 @@ import { UpdateChatwootDto } from '../../application/dtos/update-chatwoot.dto';
 import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { SetChatwookDtoResponse } from '../../application/dtos/responses/set-chatwook-dto.response';
 
-@ApiTags('Chatwoot')
+@ApiTags('EvolutionApi')
 @Controller('chatwoot')
 export class ChatwootController {
   constructor(private readonly chatwootService: ChatwootService) {}

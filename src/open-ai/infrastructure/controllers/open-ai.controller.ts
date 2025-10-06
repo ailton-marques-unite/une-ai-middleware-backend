@@ -14,7 +14,7 @@ import { ConfigOpenAiCredentialsDto } from '../../application/dtos/config-open-a
 import { UpdateOpenAiCredentialsDto } from '../../application/dtos/update-open-ai-credentials.dto';
 import { UpdateOpenAiSettingsDto } from '../../application/dtos/update-open-ai-settings.dto';
 
-@ApiTags('Open AI')
+@ApiTags('EvolutionApi')
 @Controller('openai')
 export class OpenAiController {
   constructor(private readonly openAiService: OpenAiService) {}

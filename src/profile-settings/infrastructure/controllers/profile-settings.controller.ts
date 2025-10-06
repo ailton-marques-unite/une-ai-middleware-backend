@@ -16,7 +16,7 @@ import { CreateUpdateStatusProfileSettingDto } from '../../application/dtos/crea
 import { CreateFetchPrivacySettingsProfileSettingDto } from '../../application/dtos/create-fetch-privacy-settings-profile-setting.dto';
 import { CreateUpdatePrivacyProfileSettingDto } from '../../application/dtos/create-update-privacy-profile-setting.dto';
 
-@ApiTags('Profile Settings')
+@ApiTags('EvolutionApi')
 @Controller('chat')
 export class ProfileSettingsController {
   constructor(private readonly profileSettingsService: ProfileSettingsService) {}

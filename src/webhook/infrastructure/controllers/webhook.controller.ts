@@ -4,7 +4,7 @@ import { WebhookService } from '../../application/services/webhook.service';
 import { SetWebhookDto } from '../../application/dtos/set-webhook.dto';
 import { SetWebhookResponse } from '../../application/dtos/responses/set-webhook.response';
 
-@ApiTags('Webhook')
+@ApiTags('EvolutionApi')
 @Controller('webhook')
 export class WebhookController {
   constructor(private readonly webhookService: WebhookService) {}

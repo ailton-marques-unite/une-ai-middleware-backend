@@ -25,7 +25,7 @@ import { UpdateToolDto } from '../../application/dtos/update-tool.dto';
 import { ListToolsQueryDto } from '../../application/dtos/list-tools-query.dto';
 import { ToolResponseDto } from '../../application/dtos/tool-response.dto';
 
-@ApiTags('Tools')
+@ApiTags('Vapi')
 @Controller('tools')
 export class ToolController {
   constructor(private readonly toolService: ToolService) {}

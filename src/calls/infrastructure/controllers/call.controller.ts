@@ -24,7 +24,7 @@ import { UpdateCallDto } from '../../application/dtos/update-call.dto';
 import { ListCallsQueryDto } from '../../application/dtos/list-calls-query.dto';
 import { CallResponseDto } from '../../application/dtos/call-response.dto';
 
-@ApiTags('Calls')
+@ApiTags('Vapi')
 @Controller('calls')
 export class CallController {
   constructor(private readonly callService: CallService) {}

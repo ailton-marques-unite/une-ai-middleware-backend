@@ -25,7 +25,7 @@ import { UpdatePhoneNumberDto } from '../../application/dtos/update-phone-number
 import { ListPhoneNumbersQueryDto } from '../../application/dtos/list-phone-numbers-query.dto';
 import { PhoneNumberResponseDto } from '../../application/dtos/phone-number-response.dto';
 
-@ApiTags('Phone Numbers')
+@ApiTags('Vapi')
 @Controller('phone-numbers')
 export class PhoneNumberController {
   constructor(private readonly phoneNumberService: PhoneNumberService) {}

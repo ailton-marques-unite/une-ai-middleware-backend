@@ -24,8 +24,8 @@ import { CreateInstanceResponse } from '../../application/dtos/responses/create-
 import postInstanceResponse from '../../docs/responses/post-instance.response.json';
 import { SetPresenceDto } from '../../application/dtos/set-presence.dto';
 
+@ApiTags('EvolutionApi')
 @Controller('instance')
-@ApiTags('Instances')
 export class InstanceController {
   constructor(private readonly instanceService: InstanceService) {}
 
